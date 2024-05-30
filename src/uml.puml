@@ -1,0 +1,40 @@
+@startuml
+
+abstract class Persona{
+    - nombre : String
+    - apellido : String
+}
+
+class Empleado extends Persona {
+    - nroLegajo : int
+    - sector : String
+}
+
+class Visitante extends Persona {
+    - dni : int
+    - presente : boolean
+    - habitacion : int
+    - gastos : float
+
+}
+
+class Habitacion {
+    - tipoHabitacion : String
+    - numero : int
+    - coste : int
+    - disponible : boolean
+}
+
+class Estadia {
+    - visitante : Visitante
+    - habitacion : Habitacion
+    - checkIn : Date
+    - checkOut : Date
+}
+
+
+
+
+
+
+@enduml
