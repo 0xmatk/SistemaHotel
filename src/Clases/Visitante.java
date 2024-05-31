@@ -28,7 +28,7 @@ public class Visitante extends Persona {
     }
 
     public String getOrigen() {
-        return origen;
+        return origen; //test
     }
 
     public void setOrigen(String origen) {
