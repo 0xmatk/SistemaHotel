@@ -9,7 +9,7 @@ public class Habitacion {
 
     public Habitacion(String tipo, boolean disponible, int coste, int numero) {
         this.tipo = tipo;
-        this.disponible = disponible;
+        this.disponible = true;
         this.coste = coste;
         this.numero = numero;
     }
