@@ -33,7 +33,7 @@ public class Empleado extends Persona {
                 ", sector='" + sector + '\'' +
                 ", apellido='" + apellido + '\'' +
                 ", nombre='" + nombre + '\'' +
-                "} " + super.toString();
+                "} " + super.toString(); //test
     }
 
 
