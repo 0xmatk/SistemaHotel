@@ -1,13 +1,12 @@
 package Clases;
+import Interfaces.administrarReserva;
 
-public class Empleado extends Persona {
+public class Empleado extends Persona implements administrarReserva {
     private int nroLegajo;
-    private String sector;
 
-    public Empleado(String nombre, String apellido, int nroLegajo, String sector) {
+    public Empleado(String nombre, String apellido, int nroLegajo) {
         super(nombre, apellido);
         this.nroLegajo = nroLegajo;
-        this.sector = sector;
     }
 
     public int getNroLegajo() {
@@ -18,23 +17,37 @@ public class Empleado extends Persona {
         this.nroLegajo = nroLegajo;
     }
 
-    public String getSector() {
-        return sector;
+
+    @Override
+    public void crearReserva(Reserva reserva) {
+
     }
 
-    public void setSector(String sector) {
-        this.sector = sector;
+    @Override
+    public void editarReserva(Reserva reserva) {
+
     }
+
+    @Override
+    public void eliminarReserva(Reserva reserva) {
+
+    }
+
+    @Override
+    public void listarReservas() {
+
+    }
+
 
     @Override
     public String toString() {
         return "Clases.Empleado{" +
                 "nroLegajo=" + nroLegajo +
-                ", sector='" + sector + '\'' +
                 ", apellido='" + apellido + '\'' +
                 ", nombre='" + nombre + '\'' +
                 "} " + super.toString(); //test
     }
+
 
 
 }
