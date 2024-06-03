@@ -25,7 +25,7 @@ public class Estadia extends Reserva{
 
         costoTotal = (int)diferenciaDias * habitacion.getCoste();
 
-        return costoTotal; //a
+        return costoTotal;
 
     }
 }

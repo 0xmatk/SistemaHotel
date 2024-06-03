@@ -6,7 +6,7 @@ public class Hotel {
     List<Habitacion> habitaciones;
     List<Empleado> empleados;
     List<Estadia> estadias;
-
+    List<Reserva> reservas;
 
 
 }

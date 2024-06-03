@@ -9,14 +9,10 @@ public class Reserva {
     protected Date salida;
 
     public Reserva(Visitante visitante, Habitacion habitacion, Date llegada, Date salida) {
-        if(habitacion.isDisponible()){
             this.visitante = visitante;
             this.habitacion = habitacion;
             this.llegada = llegada;
             this.salida = salida;
-        }else{
-            System.out.println("No se puede realizar una reserva. Habitacion agotada.");
-        }
     }
 
 
