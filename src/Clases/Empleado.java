@@ -1,6 +1,8 @@
 package Clases;
 import Interfaces.administrarReserva;
 
+import java.util.Date;
+
 public class Empleado extends Persona implements administrarReserva {
     private int nroLegajo;
 
@@ -19,17 +21,12 @@ public class Empleado extends Persona implements administrarReserva {
 
 
     @Override
-    public void crearReserva(Reserva reserva) {
+    public void crearReserva(int dni, Habitacion habitacion, Date llegada, Date salida, boolean estado) {
 
     }
 
     @Override
     public void editarReserva(Reserva reserva) {
-
-    }
-
-    @Override
-    public void eliminarReserva(Reserva reserva) {
 
     }
 

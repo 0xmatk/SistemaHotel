@@ -7,6 +7,7 @@ public class Reserva {
     protected Habitacion habitacion;
     protected Date llegada;
     protected Date salida;
+    protected boolean estado;
 
     public Reserva(Visitante visitante, Habitacion habitacion, Date llegada, Date salida) {
             this.visitante = visitante;
@@ -48,6 +49,14 @@ public class Reserva {
         this.habitacion = habitacion;
     }
 
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
     @Override
     public String toString() {
         return "Reserva{" +
@@ -55,6 +64,7 @@ public class Reserva {
                 ", habitacion=" + habitacion +
                 ", llegada=" + llegada +
                 ", salida=" + salida +
+                ", estado=" + estado +
                 '}';
     }
 }
