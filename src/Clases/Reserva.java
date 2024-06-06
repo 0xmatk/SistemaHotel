@@ -14,6 +14,7 @@ public class Reserva {
             this.habitacion = habitacion;
             this.llegada = llegada;
             this.salida = salida;
+            this.estado = true;
     }
 
 
