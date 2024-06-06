@@ -1,7 +1,7 @@
 package Clases;
 
 import java.util.LinkedHashSet;
-import java.util.List;
+import java.util.Collections;
 import java.util.Set;
 
 public class Hotel {
@@ -10,11 +10,11 @@ public class Hotel {
     private Set<Estadia> estadias;
     private Set<Reserva> reservas;
 
-    public Hotel(List<Habitacion> habitaciones, List<Reserva> reservas, List<Estadia> estadias, List<Empleado> empleados) {
-        this.habitaciones = new LinkedHashSet<>(habitaciones);
-        this.reservas = new LinkedHashSet<>(reservas);
-        this.estadias = new LinkedHashSet<>(estadias);
-        this.empleados = new LinkedHashSet<>(empleados);
+    public Hotel() {
+        this.habitaciones = new LinkedHashSet<>();
+        this.reservas = new LinkedHashSet<>();
+        this.estadias = new LinkedHashSet<>();
+        this.empleados = new LinkedHashSet<>();
     }
 
     public void agregarReserva(Reserva reserva) {
