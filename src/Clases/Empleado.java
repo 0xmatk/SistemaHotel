@@ -7,9 +7,10 @@ public class Empleado extends Persona implements administrarReserva {
     private int nroLegajo;
     Hotel hotel;
 
-    public Empleado(String nombre, String apellido, int nroLegajo) {
+    public Empleado(String nombre, String apellido, int nroLegajo, Hotel hotel) {
         super(nombre, apellido);
         this.nroLegajo = nroLegajo;
+        this.hotel = hotel;
     }
 
     public int getNroLegajo() {
@@ -25,13 +26,11 @@ public class Empleado extends Persona implements administrarReserva {
     public void crearReserva(Visitante visitante, Habitacion habitacion, Date llegada, Date salida, boolean estado) {
         if(visitante == null || habitacion == null || llegada == null || salida == null){
             System.out.println("Por favor, rellenar todos los datos. ");
-        }
-        Reserva reserva = new Reserva(visitante, habitacion, llegada, salida);
-        try {
+        }else{
+            Reserva reserva = new Reserva(visitante, habitacion, llegada, salida);
             hotel.agregarReserva(reserva);
-        }catch (Exception e){
-            e.printStackTrace();
         }
+
     }
 
     @Override
