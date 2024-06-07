@@ -1,13 +1,7 @@
 package Interfaces;
 
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.File;
-import java.io.IOException;
-
-public interface autentificacionUsuario {
+public interface IAutentificacionUsuario {
     boolean iniciarSesion(String nombreUsuario, String contrasena);
     void cerrarSesion();
 

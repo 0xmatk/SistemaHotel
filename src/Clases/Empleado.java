@@ -1,9 +1,9 @@
 package Clases;
-import Interfaces.administrarReserva;
+import Interfaces.IAdministrarReserva;
 
 import java.util.Date;
 
-public class Empleado extends Persona implements administrarReserva {
+public class Empleado extends Persona implements IAdministrarReserva {
     private int nroLegajo;
     Hotel hotel;
 
