@@ -34,7 +34,8 @@ public class Empleado extends Persona implements IAdministrarReserva {
         }
     }
     @Override
-    public void editarReserva(Reserva reserva) {
+    public void editarReserva(int id) {
+        Reserva reserva = hotel.encontrarReserva(id);
 
     }
 

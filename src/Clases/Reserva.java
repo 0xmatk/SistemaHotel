@@ -9,6 +9,7 @@ public class Reserva {
     protected Date llegada;
     protected Date salida;
     protected boolean estado;
+    private static int ID = 0;
 
     public Reserva(Visitante visitante, Habitacion habitacion, Date llegada, Date salida) {
             this.visitante = visitante;
@@ -16,6 +17,7 @@ public class Reserva {
             this.llegada = llegada;
             this.salida = salida;
             this.estado = true;
+
     }
 
 
@@ -59,6 +61,9 @@ public class Reserva {
         this.estado = estado;
     }
 
+    public static int getID() {
+        return ID;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -80,7 +80,7 @@ public class Visitante extends Persona implements IAdministrarReserva {
    }
 
     @Override
-    public void editarReserva(Reserva reserva) {
+    public void editarReserva(int id) {
 
     }
 
