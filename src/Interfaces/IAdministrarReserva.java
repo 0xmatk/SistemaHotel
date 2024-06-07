@@ -7,8 +7,8 @@ public interface IAdministrarReserva {
 
 
     void crearReserva(Visitante visitante, Habitacion habitacion, Date llegada, Date salida, boolean estado);
-    void editarReserva(Reserva reserva);
+    void editarReserva(int id);
     void listarReservas();
-    void buscarReserva(int dni);
+    void buscarReserva(int id);
 
 }
