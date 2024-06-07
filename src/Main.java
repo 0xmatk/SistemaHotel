@@ -16,15 +16,13 @@ public class Main {
         Visitante visitante = new Visitante("Jose", "Perez", 1213, "Mar del Plata", "Calle123", true);
 
         empleado.crearReserva(visitante, habitacion, llegada, salida, true);
-        empleado.crearReserva(visitante, habitacion, llegada, salida, true);
 
+        hotel.mostrarReservas();
+       empleado.crearReserva(visitante, habitacion, llegada, salida, true);
         hotel.mostrarReservas();
 
 
 
-
-
-
-  }
+    }
 
 }
