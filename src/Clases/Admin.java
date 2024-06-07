@@ -19,5 +19,18 @@ public class Admin extends Persona implements IAutentificacionUsuario {
     }
 
 
+    @Override
+    public boolean iniciarSesion(String nombreUsuario, String contrasena) {
+        return false;
+    }
 
+    @Override
+    public void cerrarSesion() {
+
+    }
+
+    @Override
+    public boolean verificarCredenciales(String nombreUsuario, String contrasena) {
+        return IAutentificacionUsuario.super.verificarCredenciales(nombreUsuario, contrasena);
+    }
 }
