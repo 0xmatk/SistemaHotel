@@ -27,8 +27,21 @@ public class Hotel {
     }
 
     public void agregarEstadia(Estadia estadia) {
-        reservas.add(estadia);
+        boolean flag = reservas.add(estadia);
+
+        if(flag){
+            System.out.println("Se agrego la estadia.");
+        }else{
+            System.out.println("No se agrego la estadia. La estadia ya existe. ");
+        }
     }
+
+    public void mostrarEstadias(){
+        for(Estadia estadia : estadias){
+            System.out.println(estadia);
+        }
+    }
+
 
     public void mostrarReservas(){
         for(Reserva reserva: reservas){

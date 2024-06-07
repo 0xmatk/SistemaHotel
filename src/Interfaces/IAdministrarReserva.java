@@ -3,7 +3,7 @@ import Clases.*;
 
 import java.util.Date;
 
-public interface administrarReserva {
+public interface IAdministrarReserva {
 
 
     void crearReserva(Visitante visitante, Habitacion habitacion, Date llegada, Date salida, boolean estado);
