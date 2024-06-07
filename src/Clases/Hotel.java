@@ -17,14 +17,21 @@ public class Hotel {
         this.empleados = new LinkedHashSet<>();
     }
 
+
+
     public void agregarReserva(Reserva reserva) {
-       boolean flag = reservas.add(reserva);
-       if(flag){
-           System.out.println("Se agrego la reserva.");
-       }else{
-           System.out.println("No se agrego la reserva. La reserva ya existe. ");
-       }
+        for(Reserva r : reservas) {
+            if (reserva.getLlegada().equals(r.getLlegada()) && reserva.getSalida().equals(r.getSalida())) {
+                System.out.println("Error: La nueva reserva es igual a una reserva existente.");
+                return;
+            }
+        }
+        reserva.habitacion.setDisponible(false);
+        reservas.add(reserva);
+
     }
+
+
 
     public void agregarEstadia(Estadia estadia) {
         boolean flag = reservas.add(estadia);
@@ -48,5 +55,8 @@ public class Hotel {
             System.out.println(reserva);
         }
     }
+
+
+
 
 }

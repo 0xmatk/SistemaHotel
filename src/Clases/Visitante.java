@@ -1,12 +1,20 @@
 package Clases;
 
-public class Visitante extends Persona {
+import Interfaces.IAdministrarReserva;
+
+import java.util.Date;
+import java.util.List;
+
+public class Visitante extends Persona implements IAdministrarReserva {
     private int dni;
     private String origen;
     private String domicilioOrigen;
     private boolean presente;
     private float gastos;
     private int nroHabitacion;
+    List<Reserva> reservasUsuario;
+    List<Estadia> estadiasUsuario;
+
 
     public Visitante(String nombre, String apellido, int dni, String origen, String domicilioOrigen, boolean presente) {
         super(nombre, apellido);
@@ -65,5 +73,24 @@ public class Visitante extends Persona {
 
     public void setNroHabitacion(int nroHabitacion) {
         this.nroHabitacion = nroHabitacion;
+    }
+
+   public void crearReserva(Visitante visitante, Habitacion habitacion, Date llegada, Date salida, boolean estado){
+
+   }
+
+    @Override
+    public void editarReserva(Reserva reserva) {
+
+    }
+
+    @Override
+    public void listarReservas() {
+
+    }
+
+    @Override
+    public void buscarReserva(int dni) {
+
     }
 }

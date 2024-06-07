@@ -24,15 +24,15 @@ public class Empleado extends Persona implements IAdministrarReserva {
 
     @Override
     public void crearReserva(Visitante visitante, Habitacion habitacion, Date llegada, Date salida, boolean estado) {
-        if(visitante == null || habitacion == null || llegada == null || salida == null){
+        if (visitante == null || habitacion == null || llegada == null || salida == null) {
             System.out.println("Por favor, rellenar todos los datos. ");
-        }else{
+        } else {
             Reserva reserva = new Reserva(visitante, habitacion, llegada, salida);
+
             hotel.agregarReserva(reserva);
+
         }
-
     }
-
     @Override
     public void editarReserva(Reserva reserva) {
 
@@ -40,6 +40,11 @@ public class Empleado extends Persona implements IAdministrarReserva {
 
     @Override
     public void listarReservas() {
+
+    }
+
+    @Override
+    public void buscarReserva(int dni) {
 
     }
 

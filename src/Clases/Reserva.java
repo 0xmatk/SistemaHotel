@@ -1,6 +1,7 @@
 package Clases;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Reserva {
     protected Visitante visitante;
@@ -56,6 +57,21 @@ public class Reserva {
 
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Reserva reserva = (Reserva) o;
+        return llegada.equals(reserva.llegada) &&
+                salida.equals(reserva.salida);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(llegada, salida);
     }
 
     @Override
