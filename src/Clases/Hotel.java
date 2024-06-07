@@ -56,6 +56,18 @@ public class Hotel {
         }
     }
 
+    public Reserva encontrarReserva(int dni){
+        for(Reserva r : reservas){
+            if(r.visitante.getDni() == dni){
+                return r;
+            }
+
+        }
+
+        return null;
+
+    }
+
 
 
 
