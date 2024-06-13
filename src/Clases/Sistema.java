@@ -11,7 +11,7 @@ public class Sistema implements IAutentificacionUsuario {
 
     public Sistema() {
         this.teclado = new Scanner(System.in);
-        this.usuario = iniciarSesion();
+        //this.usuario = iniciarSesion();
         this.contrasenia = contrasenia;
     }
 

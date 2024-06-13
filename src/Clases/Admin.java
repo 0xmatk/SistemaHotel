@@ -5,7 +5,9 @@ import Interfaces.IAutentificacionUsuario;
 public class Admin extends Persona implements IAutentificacionUsuario {
     private String usuario;
     private String contrasenia;
-    public Admin(){
+
+    public Admin(String nombre, String apellido){
+        super(nombre, apellido);
         this.usuario="admin";
         this.contrasenia="1234";
     }

@@ -6,6 +6,7 @@ import java.util.Date;
 public class Empleado extends Persona implements IAdministrarReserva {
     private int nroLegajo;
     Hotel hotel;
+    private boolean estado;
 
     public Empleado(String nombre, String apellido, int nroLegajo, Hotel hotel) {
         super(nombre, apellido);
@@ -36,6 +37,13 @@ public class Empleado extends Persona implements IAdministrarReserva {
     @Override
     public void editarReserva(int id) {
         Reserva reserva = hotel.encontrarReserva(id);
+        if(reserva != null) {
+            System.out.println("La reserva con el id " + id + " es:");
+            System.out.println(reserva);
+
+        }else{
+            System.out.println("Reserva no encontrada");
+        }
 
     }
 
@@ -44,9 +52,15 @@ public class Empleado extends Persona implements IAdministrarReserva {
 
     }
 
-    @Override
-    public void buscarReserva(int dni) {
 
+    @Override
+    public void buscarReserva(int id) {
+       Reserva r =  hotel.encontrarReserva(id);
+
+       if(r != null) {
+           System.out.println("La reserva con el id " + id + " es:");
+           System.out.println(r);
+       }
     }
 
 
