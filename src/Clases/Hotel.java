@@ -31,8 +31,6 @@ public class Hotel {
 
     }
 
-
-
     public void agregarEstadia(Estadia estadia) {
         boolean flag = reservas.add(estadia);
 
@@ -56,9 +54,9 @@ public class Hotel {
         }
     }
 
-    public Reserva encontrarReserva(int dni){
+    public Reserva encontrarReserva(int id){
         for(Reserva r : reservas){
-            if(r.visitante.getDni() == dni){
+            if(r.getID() == id){
                 return r;
             }
 

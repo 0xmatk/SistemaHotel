@@ -1,19 +1,20 @@
 package Clases;
 
 import Interfaces.IAdministrarReserva;
-
+import Interfaces.IAutentificador;
 import java.util.Date;
-import java.util.List;
 
-public class Visitante extends Persona implements IAdministrarReserva {
+
+public class Visitante extends Persona implements IAdministrarReserva, IAutentificador {
     private int dni;
     private String origen;
     private String domicilioOrigen;
     private boolean presente;
     private float gastos;
     private int nroHabitacion;
-    List<Reserva> reservasUsuario;
-    List<Estadia> estadiasUsuario;
+    private String token;
+    private boolean estado;
+
 
 
     public Visitante(String nombre, String apellido, int dni, String origen, String domicilioOrigen, boolean presente) {
@@ -24,8 +25,10 @@ public class Visitante extends Persona implements IAdministrarReserva {
         this.presente = presente;
         this.gastos = getGastos();
         this.nroHabitacion = getNroHabitacion();
+        this.token = generateToken();
 
     }
+
 
     public int getDni() {
         return dni;
@@ -75,7 +78,11 @@ public class Visitante extends Persona implements IAdministrarReserva {
         this.nroHabitacion = nroHabitacion;
     }
 
-   public void crearReserva(Visitante visitante, Habitacion habitacion, Date llegada, Date salida, boolean estado){
+    public String getToken() {
+        return token;
+    }
+
+    public void crearReserva(Visitante visitante, Habitacion habitacion, Date llegada, Date salida, boolean estado){
 
    }
 
@@ -92,5 +99,20 @@ public class Visitante extends Persona implements IAdministrarReserva {
     @Override
     public void buscarReserva(int dni) {
 
+    }
+
+    @Override
+    public String toString() {
+        return "Visitante{" +
+                "dni=" + dni +
+                ", origen='" + origen + '\'' +
+                ", domicilioOrigen='" + domicilioOrigen + '\'' +
+                ", presente=" + presente +
+                ", gastos=" + gastos +
+                ", nroHabitacion=" + nroHabitacion +
+                ", token='" + token + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", nombre='" + nombre + '\'' +
+                "} " + super.toString();
     }
 }
