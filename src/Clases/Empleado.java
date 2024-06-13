@@ -49,9 +49,8 @@ public class Empleado extends Persona implements IAdministrarReserva {
 
     @Override
     public void listarReservas() {
-
+        hotel.mostrarReservas();
     }
-
 
     @Override
     public void buscarReserva(int id) {
@@ -60,6 +59,9 @@ public class Empleado extends Persona implements IAdministrarReserva {
        if(r != null) {
            System.out.println("La reserva con el id " + id + " es:");
            System.out.println(r);
+
+       }else{
+           System.out.println("Reserva no encontrada");
        }
     }
 
