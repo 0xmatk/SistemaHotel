@@ -7,7 +7,7 @@ import java.time.LocalDate;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        Hotel hotel = new Hotel();
+
         Sistema sistema = new Sistema();
       Habitacion habitacion = new Habitacion("tipo", true, 1, 1);
         Date llegada = new Date();
@@ -16,9 +16,13 @@ public class Main {
         llegada2.setTime(20);
 
 
-        Empleado empleado = new Empleado("Matias", "Klingeman", 1, hotel);
+        Empleado empleado = new Empleado("Matias", "Klingeman", 1);
+        Admin adminprincipal= new Admin("Pepe", "ganga");
         Visitante visitante = new Visitante("Jose", "Perez", 1213, "Mar del Plata", "Calle123", true);
         Reserva reserva = new Reserva(visitante, habitacion, null, null);
+
+
+
 
         System.out.println(visitante);
 

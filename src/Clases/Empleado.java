@@ -5,13 +5,11 @@ import java.util.Date;
 
 public class Empleado extends Persona implements IAdministrarReserva {
     private int nroLegajo;
-    Hotel hotel;
     private boolean estado;
 
-    public Empleado(String nombre, String apellido, int nroLegajo, Hotel hotel) {
+    public Empleado(String nombre, String apellido, int nroLegajo) {
         super(nombre, apellido);
         this.nroLegajo = nroLegajo;
-        this.hotel = hotel;
     }
 
     public int getNroLegajo() {
