@@ -43,7 +43,6 @@ public class Sistema implements IAutentificacionUsuario {
 
 
 
-
     @Override
     public boolean iniciarSesion(String nombreUsuario, String contrasena) {
 

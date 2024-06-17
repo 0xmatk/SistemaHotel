@@ -277,8 +277,6 @@ public class Empleado extends Persona implements IAdministrarReserva {
 
     }
 
-
-
     ///=======================================================================================================0
     @Override
     public void crearReserva(Visitante visitante, Habitacion habitacion, Date llegada, Date salida, boolean estado) {

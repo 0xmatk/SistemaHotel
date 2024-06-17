@@ -134,7 +134,6 @@ public class Admin extends Persona implements IAdministrarReserva, IAdministrarE
 
         int opcion = teclado.nextInt();
 
-
         switch (opcion) {
             case 1:
                 ///Metodo de llamado a lista de habitaciones y luego poder Eliminar
@@ -164,7 +163,6 @@ public class Admin extends Persona implements IAdministrarReserva, IAdministrarE
                 "5- Crear Visitantes ");
 
         int opcion = teclado.nextInt();
-
 
         switch (opcion) {
             case 1:
