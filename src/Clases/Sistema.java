@@ -29,11 +29,11 @@ public class Sistema implements IAutentificacionUsuario {
         }else{
             if(usuario instanceof Empleado){
                 Empleado emp= (Empleado) usuario;
-               /// emp.empleadoSwitch(this.Hotel);
+               emp.empSwitch(this.hotel);
             }else{
                 if(usuario instanceof Visitante){
                     Visitante visit= (Visitante) usuario;
-                    ///visit.visitanteSwitch(this.Hotel);
+                    visit.visitanteSwitch(this.hotel);
                 }
             }
         }

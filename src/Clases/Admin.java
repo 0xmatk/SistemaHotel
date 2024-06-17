@@ -43,24 +43,24 @@ public class Admin extends Persona implements IAdministrarReserva, IAdministrarE
 
         switch (opcion) {
             case 1:
-                this.adminSwitchVisualizar();
+                this.adminSwitchVisualizar(hotel);
                 break;
 
             case 2:
-                this.adminSwitchEditar();
+                this.adminSwitchEditar(hotel);
                 break;
 
             case 3:
-                adminSwitchEliminar();
+                this.adminSwitchEliminar(hotel);
                 break;
             case 4:
-                adminSwitchCrear();
+                this.adminSwitchCrear(hotel);
 
 
         }
     }
 
-    private void adminSwitchVisualizar() {
+    protected void adminSwitchVisualizar(Hotel hotel) {
         Scanner teclado = new Scanner();
         System.out.println("1- Visualizar Habitaciones del hotel \n" +
                 "2- Visualizar empleados\n" +
@@ -91,7 +91,7 @@ public class Admin extends Persona implements IAdministrarReserva, IAdministrarE
     }
 
 
-    private void adminSwitchEditar() {
+    protected void adminSwitchEditar(Hotel hotel) {
 
         Scanner teclado = new Scanner();
 
@@ -106,24 +106,24 @@ public class Admin extends Persona implements IAdministrarReserva, IAdministrarE
 
         switch (opcion) {
             case 1:
-                editSwitchHabitaciones();
+                this.editSwitchHabitaciones(hotel);
                 break;
             case 2:
-                editSwitchEmpleados();
+                this.editSwitchEmpleados(hotel);
                 break;
             case 3:
-                editSwitchEstadias();
+                this.editSwitchEstadias(hotel);
                 break;
             case 4:
-                ///editSwitchReservas();
+                this.editSwitchReservas(hotel);
                 break;
             case 5:
-                ///editSwitchVisitantes();
+                this.editSwitchVisitantes(hotel);
                 break;
         }
     }
 
-    private void adminSwitchEliminar() {
+    protected void adminSwitchEliminar(Hotel hotel) {
 
         Scanner teclado = new Scanner();
         System.out.println("1- Eliminar Habitaciones del hotel \n" +
@@ -154,7 +154,7 @@ public class Admin extends Persona implements IAdministrarReserva, IAdministrarE
         }
     }
 
-    private void adminSwitchCrear() {
+    protected void adminSwitchCrear(Hotel hotel) {
 
         Scanner teclado = new Scanner();
         System.out.println("1- Crear Habitaciones del hotel \n" +
@@ -186,7 +186,7 @@ public class Admin extends Persona implements IAdministrarReserva, IAdministrarE
     }
 
 
-    private void editSwitchHabitaciones() {
+    protected void editSwitchHabitaciones(Hotel hotel) {
 
         Scanner teclado = new Scanner();
         ///Pedir numero de habitacion y asignarlo
@@ -218,7 +218,7 @@ public class Admin extends Persona implements IAdministrarReserva, IAdministrarE
 
     }
 
- private void   editSwitchEmpleados(){
+    protected void   editSwitchEmpleados(Hotel hotel){
 
      Scanner teclado = new Scanner();
      ///Pedir El empleado por nroLegajo
@@ -249,16 +249,20 @@ public class Admin extends Persona implements IAdministrarReserva, IAdministrarE
 
  }
 
- private void   editSwitchEstadias(){
+    protected void   editSwitchEstadias(Hotel hotel){
 
      Scanner teclado = new Scanner();
      ///Pedir El empleado por nroLegajo
      /// Mostrar mostrar Empleado
 
-     System.out.println("1- Editar Nombre de la  Estadia \n" +
-             "2- Editar apellido de la  Estadia\n" +
-             "3-Editar nro Legajo de la  Estadia\n" +
-             "4-Editar estado de la  Estadia\n");
+     System.out.println("1- Editar el visitante de la  Estadia \n" +
+             "2- Editar la llegada a la  Estadia\n" +
+             "3-Editar la salida de la  Estadia\n" +
+             "4-Editar estado de la  Estadia\n" +
+             "5- Editar el ID de la Estadia\n" +
+             "6- Editar estado del Check in de la estadia\n" +
+             "7- Editar estado del check out de la Estadia\n" +
+             "8- Editar el coste de la Estadia\n");
 
      int opcion = teclado.nextInt();
 
@@ -275,67 +279,102 @@ public class Admin extends Persona implements IAdministrarReserva, IAdministrarE
              break;
          case 4:
              ///Solicitar  y asignar
+             break;
+         case 5:
+             /// Solicitar y asignar
+             break;
+         case 6:
+             /// Solicitar y asignar
+             break;
+         case 7:
+             /// Solicitar y asignar
+             break;
+         case 8:
+             /// Solicitar y asignar
+             break;
+     }
+
+ }
+
+    protected void   editSwitchReservas(Hotel hotel){
+
+     Scanner teclado = new Scanner();
+     ///Pedir El empleado por nroLegajo
+     /// Mostrar mostrar Empleado
+
+     System.out.println("1- Editar el visitante de la  Reserva \n" +
+             "2- Editar la llegada a la  Reserva\n" +
+             "3-Editar la salida de la  Reserva\n" +
+             "4-Editar estado de la  Reserva\n" +
+             "5- Editar el ID de la Reserva");
+
+     int opcion = teclado.nextInt();
+
+
+     switch (opcion) {
+         case 1:
+             ///Solicitar y asignar
+             break;
+         case 2:
+             ///Solicitar  y asignar
+             break;
+         case 3:
+             ///Solicitar  y asignar
+             break;
+         case 4:
+             ///Solicitar  y asignar
+             break;
+         case 5:
+             /// Solicitar y asignar
+             break;
 
      }
 
  }
 
+    protected void  editSwitchVisitantes(Hotel hotel){ Scanner teclado = new Scanner();
+      ///Pedir El empleado por nroLegajo
+      /// Mostrar mostrar Empleado
 
-    @Override
-    public void crearEstadia(Visitante visitante, Habitacion habitacion, boolean checkIn, boolean checkOut, int costo) {
+      System.out.println("1- Editar el DNI del  visitante  \n" +
+              "2- Editar el Origen del visitante \n" +
+              "3-Editar el domicilio de origen del visitante \n" +
+              "4-Editar estado del  visitante \n" +
+              "5- Editar el Gasto del visitante" +
+              "6- Editar el nro de Habitacion del visitante" +
+              "7- Editar el token del visitante" +
+              "8- Editar la Presencia del visitante");
 
-    }
+      int opcion = teclado.nextInt();
 
-    @Override
-    public void editarEstadia(int ID) {
 
-    }
+      switch (opcion) {
+          case 1:
+              ///Solicitar y asignar
+              break;
+          case 2:
+              ///Solicitar  y asignar
+              break;
+          case 3:
+              ///Solicitar  y asignar
+              break;
+          case 4:
+              ///Solicitar  y asignar
+              break;
+          case 5:
+              /// Solicitar y asignar
+              break;
 
-    @Override
-    public void listarEstadias() {
+      }
 
-    }
-
-    @Override
-    public void buscarEstadia(int dni) {
-
-    }
-
-    @Override
-    public void crearReserva(Visitante visitante, Habitacion habitacion, Date llegada, Date salida, boolean estado) {
-
-    }
-
-    @Override
-    public void editarReserva(int id) {
-
-    }
-
-    @Override
-    public void listarReservas() {
-
-    }
-
-    @Override
-    public void buscarReserva(int id) {
-
-    }
-
-    @Override
-    public void darAlta() {
-        IAltaBajaModificacion.super.darAlta();
-    }
-
-    @Override
-    public void darBaja() {
-        IAltaBajaModificacion.super.darBaja();
-    }
-
-    @Override
-    public void modificar() {
-        IAltaBajaModificacion.super.modificar();
-    }
+  }
 }
+
+
+
+///===================================================================================================================
+
+
 
 
 ///===================================================================================================================
