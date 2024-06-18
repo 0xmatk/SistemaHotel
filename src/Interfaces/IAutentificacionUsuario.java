@@ -2,6 +2,7 @@ package Interfaces;
 
 
 public interface IAutentificacionUsuario {
+
     boolean iniciarSesion(String nombreUsuario, String contrasena);
     void cerrarSesion();
 

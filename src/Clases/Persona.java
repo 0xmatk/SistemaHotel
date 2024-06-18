@@ -8,11 +8,9 @@ public abstract class Persona {
         this.nombre = nombre;
         this.apellido = apellido;
     }
-
     public String getNombre() {
         return nombre;
     }
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
