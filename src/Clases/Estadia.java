@@ -16,6 +16,10 @@ public class Estadia extends Reserva{
 
     }
 
+
+
+
+
     public int calcularCosto(){
       int costoTotal = 0;
 

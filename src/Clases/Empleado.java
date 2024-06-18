@@ -1,10 +1,11 @@
 package Clases;
+import Interfaces.IAdministrarEstadia;
 import Interfaces.IAdministrarReserva;
 
 import java.util.Date;
 import java.util.Scanner;
 
-public class Empleado extends Persona implements IAdministrarReserva {
+public class Empleado extends Persona implements IAdministrarReserva, IAdministrarEstadia {
     private int nroLegajo;
     private boolean estado;
 
@@ -25,7 +26,7 @@ public class Empleado extends Persona implements IAdministrarReserva {
 
     public void empSwitch(Hotel hotel) {
         Scanner teclado;
-        teclado = new Scanner();
+        teclado = new Scanner(System.in);
 
 
         System.out.println("1- Visualizar informacion del hotel \n" +
@@ -57,7 +58,7 @@ public class Empleado extends Persona implements IAdministrarReserva {
 
 
     protected void empSwitchVisualizar(Hotel hotel) {
-        Scanner teclado = new Scanner();
+        Scanner teclado = new Scanner(System.in);
         System.out.println("1- Visualizar Habitaciones del hotel \n" +
                 "2- Visualizar Visitantes\n" +
                 "3-visualizar Estadias\n" +
@@ -77,7 +78,7 @@ public class Empleado extends Persona implements IAdministrarReserva {
                 /// Metodo de llamado a lista de Estadias y mostrar
                 break;
             case 4:
-                /// Metodo de llamado a lista de Reservas y mostrar
+                hotel.mostrarReservas();
                 break;
         }
     }
@@ -85,7 +86,7 @@ public class Empleado extends Persona implements IAdministrarReserva {
 
     protected void empSwitchEditar(Hotel hotel) {
 
-        Scanner teclado = new Scanner();
+        Scanner teclado = new Scanner(System.in);
 
         System.out.println("1-Editar Estadias\n" +
                 "2-Editar Reservas\n" +
@@ -110,7 +111,7 @@ public class Empleado extends Persona implements IAdministrarReserva {
 
     protected void empSwitchEliminar(Hotel hotel) {
 
-        Scanner teclado = new Scanner();
+        Scanner teclado = new Scanner(System.in);
         System.out.println(
                 "1-Eliminar Estadias\n" +
                 "2-Eliminar Reservas\n" +
@@ -134,7 +135,7 @@ public class Empleado extends Persona implements IAdministrarReserva {
 
     protected void empSwitchCrear(Hotel hotel) {
 
-        Scanner teclado = new Scanner();
+        Scanner teclado = new Scanner(System.in);
         System.out.println(
                 "1-Crear Estadias\n" +
                 "2-Crear Reservas\n" +
@@ -145,10 +146,11 @@ public class Empleado extends Persona implements IAdministrarReserva {
 
         switch (opcion) {
             case 1:
-                ///Metodo de llamado a lista de habitaciones y luego poder Crear
+                // Sub-menu
+               //hotel.agregarEstadia();
                 break;
             case 2:
-                /// Metodo de llamado a lista de empleados y luego poder Crear
+                //hotel.agregarReserva();
                 break;
             case 3:
                 /// Metodo de llamado a lista de Estadias y luego poder Crear
@@ -159,7 +161,7 @@ public class Empleado extends Persona implements IAdministrarReserva {
 
     protected void   editSwitchEstadias(Hotel hotel){
 
-        Scanner teclado = new Scanner();
+        Scanner teclado = new Scanner(System.in);
         ///Pedir El empleado por nroLegajo
         /// Mostrar mostrar Empleado
 
@@ -206,7 +208,7 @@ public class Empleado extends Persona implements IAdministrarReserva {
 
     protected void   editSwitchReservas(Hotel hotel){
 
-        Scanner teclado = new Scanner();
+        Scanner teclado = new Scanner(System.in);
         ///Pedir El empleado por nroLegajo
         /// Mostrar mostrar Empleado
 
@@ -240,7 +242,7 @@ public class Empleado extends Persona implements IAdministrarReserva {
 
     }
 
-    protected void  editSwitchVisitantes(Hotel hotel){ Scanner teclado = new Scanner();
+    protected void  editSwitchVisitantes(Hotel hotel){ Scanner teclado = new Scanner(System.in);
         ///Pedir El empleado por nroLegajo
         /// Mostrar mostrar Empleado
 
@@ -324,6 +326,26 @@ public class Empleado extends Persona implements IAdministrarReserva {
     @Override
     public String toString() {
         return "Empleado{}";
+    }
+
+    @Override
+    public void crearEstadia(Visitante visitante, Habitacion habitacion, boolean checkIn, boolean checkOut, int costo) {
+
+    }
+
+    @Override
+    public void editarEstadia(int ID) {
+
+    }
+
+    @Override
+    public void listarEstadias() {
+        hotel.mostrarEstadias();
+    }
+
+    @Override
+    public void buscarEstadia(int dni) {
+
     }
 }
 

@@ -121,7 +121,7 @@ public class Visitante extends Persona implements IAdministrarReserva, IAutentif
 
 
     protected void visitanteSwitchVisualizar(Hotel hotel) {
-        Scanner teclado = new Scanner();
+        Scanner teclado = new Scanner(System.in);
         System.out.println(
                 "1- Visualizar su informacion \n" +
                 "2-visualizar su Estadias\n" +
@@ -147,7 +147,7 @@ public class Visitante extends Persona implements IAdministrarReserva, IAutentif
 
     protected void visitanteSwitchEditar(Hotel hotel) {
 
-        Scanner teclado = new Scanner();
+        Scanner teclado = new Scanner(System.in);
 
         System.out.println(
                 "1-Editar Reservas\n" +
@@ -168,7 +168,7 @@ public class Visitante extends Persona implements IAdministrarReserva, IAutentif
 
     protected void visitanteSwitchEliminar(Hotel hotel) {
 
-        Scanner teclado = new Scanner();
+        Scanner teclado = new Scanner(System.in);
         System.out.println(
                         "1-Eliminar Reservas\n" +
                         "2- Eliminar Visitantes ");
@@ -188,7 +188,7 @@ public class Visitante extends Persona implements IAdministrarReserva, IAutentif
 
     protected void visitanteSwitchCrear(Hotel hotel) {
 
-        Scanner teclado = new Scanner();
+        Scanner teclado = new Scanner(System.in);
         System.out.println(
                         "1-Crear Reservas\n" +
                         "2- Crear Visitantes ");
@@ -213,7 +213,7 @@ public class Visitante extends Persona implements IAdministrarReserva, IAutentif
 
     protected void   editSwitchReservas(Hotel hotel){
 
-        Scanner teclado = new Scanner();
+        Scanner teclado = new Scanner(System.in);
         ///Pedir El empleado por nroLegajo
         /// Mostrar mostrar Empleado
 
@@ -242,7 +242,8 @@ public class Visitante extends Persona implements IAdministrarReserva, IAutentif
 
     }
 
-    protected void  editSwitchVisitantes(Hotel hotel){ Scanner teclado = new Scanner();
+    protected void  editSwitchVisitantes(Hotel hotel){
+        Scanner teclado = new Scanner(System.in);
         ///Pedir El empleado por nroLegajo
         /// Mostrar mostrar Empleado
 
