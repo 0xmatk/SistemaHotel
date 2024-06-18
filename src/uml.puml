@@ -3,22 +3,62 @@
 abstract class Persona{
     - nombre : String
     - apellido : String
+
+    + Persona(String nombre, String apellido)
+    + String getNombre()
+    + void setNombre(String nombre)
+    + String getApellido()
+    + void setApellido(String apellido)
 }
 
-class Empleado extends Persona {
+class Empleado extends Persona implements administrarReserva {
     - nroLegajo : int
+    - hotel : Hotel
+    - estado : boolean
+
+    + int getNroLegajo()
+    + void setNroLegajo(int nroLegajo)
 
 }
 
-class Visitante extends Persona {
+class Visitante extends Persona implements administrarReserva, Autentificador {
     - dni : int
     - presente : boolean
     - habitacion : int
     - gastos : float
     - domicilioOrigen : String
     - origen : String
+}
 
+class Admin extends Persona implements AutentificacionUsuario{
+- Usuario : String
+- Contraseña: String
 
++ Admin(String nombre, String apellido)
++ String getUsuario()
++ String getContrasenia()
+}
+
+class Sistema implements AutentificacionUsuario {
+    -  teclado :Scanner
+    -  usuario : String
+    -  contrasenia : String
+
+    +Sistema()
+    }
+
+class Hotel {
+ - Set<Habitacion> habitaciones;
+ - Set<Empleado> empleados;
+ - Set<Estadia> estadias;
+ - Set<Reserva> reservas;
+
++  Hotel Hotel()
++ void agregarReserva(Reserva reserva)
++ void agregarEstadia(Estadia estadia)
++ void mostrarEstadias()
++ void mostrarReservas()
++ Reserva encontrarReserva(int id)
 }
 
 class Habitacion {
@@ -26,29 +66,83 @@ class Habitacion {
     - numero : int
     - coste : int
     - disponible : boolean
+
+    + Habitacion(String tipo, boolean disponible, int coste, int numero)
+    + String getTipo()
+    + void setTipo(String tipo)
+    + int getCoste()
+    + void setCoste(int coste)
+    + int getNumero()
+    + void setNumero(int numero)
+    + boolean isDisponible()
+    + void setDisponible(boolean disponible)
 }
 
 class Estadia extends Reserva{
      - checkIn : boolean
      - checkOut : boolean
      - costo : int
+
+    + Estadia(Visitante visitante, Habitacion habitacion, Date llegada, Date salida)
+    + int calcularCosto()
 }
+
 
 class Reserva {
      # visitante : Visitante
      # habitacion : Habitacion
      # llegada : Date
      # salida : Date
+     # estado : boolean
+     - id : int
+     - static  contador : int
+
+     + Reserva(Visitante visitante, Habitacion habitacion, Date llegada, Date salida)
+     + Visitante getVisitante()
+     +void setVisitante(Visitante visitante)
+     + Date getSalida()
+     + void setSalida(Date salida)
+     +Date getLlegada()
+     +void setLlegada(Date llegada)
+     +Habitacion getHabitacion()
+     +void setHabitacion(Habitacion habitacion)
+     +boolean isEstado()
+     +void setEstado(boolean estado)
+     +int getID()
+
 
 }
 
 interface administrarReserva {
-    crearReserva(Reserva reserva) : void
-    editarReserva(Reserva reserva) : void
-    eliminarReserva(Reserva reserva) : void
-    listarReservas : void
+   + crearReserva(Reserva reserva) : void
+    + editarReserva(Reserva reserva) : void
+    +eliminarReserva(Reserva reserva) : void
+    +listarReservas() : void
 }
 
+interface AdministrarEstadia {
+
+ +crearEstadia(Visitante visitante, Habitacion habitacion, boolean checkIn, boolean checkOut, int costo) : void
+     +editarEstadia(int ID): void
+    +listarEstadias() : void
+   + buscarEstadia(int dni) : void
+}
+
+interface AltaBajaModificacion{
+
+ +darAlta() : void
++darBaja(): void
++modificar(): void
+}
+interface AutentificacionUsuario{
++iniciarSesion(String nombreUsuario, String contrasena): boolean
++cerrarSesion() : void
++verificarCredenciales(String nombreUsuario, String contrasena): boolean
+}
+
+interface Autentificador{
++generateToken() : String
+}
 
 
 
