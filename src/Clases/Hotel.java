@@ -119,52 +119,22 @@ public class Hotel {
         return null;
     }
 
-    public void editarHabitacion(int numero){
-        Habitacion habitacion = buscarNumeroHabitacion(numero);
 
-        if(habitacion != null){
-            while (true) {
-                System.out.println("Editando la habitación " + numero);
-                System.out.println("Menú:");
-                System.out.println("1. Establecer Tipo");
-                System.out.println("2. Establecer Coste");
-                System.out.println("3. Establecer Disponibilidad");
-                System.out.println("4. Mostrar Información de la Habitación");
-                System.out.println("5. Salir");
-                System.out.print("Elige una opción: ");
 
-                Scanner teclado = new Scanner(System.in);
-                int opcion =  teclado.nextInt();
-                teclado.nextLine();
+    public Set<Habitacion> getHabitaciones() {
+        return habitaciones;
+    }
 
-                switch (opcion) {
-                    case 1:
-                        System.out.print("Introduce el tipo de habitación: ");
-                        String tipo =  teclado.nextLine();
-                        habitacion.setTipo(tipo);
-                        break;
-                    case 2:
-                        System.out.print("Introduce el coste de la habitación: ");
-                        int coste =  teclado.nextInt();
-                        habitacion.setCoste(coste);
-                        break;
-                    case 3:
-                        System.out.print("¿Está disponible la habitación? (true/false): ");
-                        boolean disponible =  teclado.nextBoolean();
-                        habitacion.setDisponible(disponible);
-                        break;
-                    case 4:
-                        System.out.println("Información de la Habitación:");
-                        System.out.println(habitacion);
-                        break;
-                    case 5:
-                        System.out.println("Saliendo de la edición de la habitación...");
-                        return;
-                    default:
-                        System.out.println("Opción no válida. Inténtalo de nuevo.");
-                }
-            }
-        }
+    public Set<Empleado> getEmpleados() {
+        return empleados;
+    }
+
+    public Set<Estadia> getEstadias() {
+        return estadias;
+    }
+
+    public Set<Reserva> getReservas() {
+        return reservas;
     }
 
     public void mostrarEmpleados(){
@@ -172,6 +142,11 @@ public class Hotel {
             System.out.println(empleado);
         }
     }
+
+    public void agregarEmpleado(Empleado empleado){
+        this.empleados.add(empleado);
+    }
+
 
 
 

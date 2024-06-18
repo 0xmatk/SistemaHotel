@@ -1,11 +1,12 @@
 package Clases;
 import Interfaces.IAdministrarEstadia;
+import Interfaces.IAdministrarHabitacion;
 import Interfaces.IAdministrarReserva;
 
 import java.util.Date;
 import java.util.Scanner;
 
-public class Empleado extends Persona implements IAdministrarReserva, IAdministrarEstadia {
+public class Empleado extends Persona{
     private int nroLegajo;
     private boolean estado;
 
@@ -69,7 +70,7 @@ public class Empleado extends Persona implements IAdministrarReserva, IAdministr
 
         switch (opcion) {
             case 1:
-                ///Metodo de llamado a lista de habitaciones y mostrar
+                this.mostrarHabitaciones(hotel);
                 break;
             case 2:
                 /// Metodo de llamado a lista de empleados y mostrar
@@ -345,6 +346,12 @@ public class Empleado extends Persona implements IAdministrarReserva, IAdministr
 
     @Override
     public void buscarEstadia(int dni) {
+
+    }
+
+
+    @Override
+    public void eliminarHabitacion(int numero) {
 
     }
 }

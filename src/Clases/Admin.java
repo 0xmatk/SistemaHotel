@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 
-public class Admin extends Persona implements IAdministrarReserva, IAdministrarEstadia, IAltaBajaModificacion {
+public class Admin extends Persona {
     private String usuario;
     private String contrasenia;
 
@@ -29,7 +29,7 @@ public class Admin extends Persona implements IAdministrarReserva, IAdministrarE
     ///=================================================================================================================
     public void adminSwitch(Hotel hotel) {
         Scanner teclado;
-        teclado = new Scanner();
+        teclado = new Scanner(System.in);
 
         ///Ver si hay que agregar alguna opcion que pueda hacer el Admin
 
@@ -61,7 +61,7 @@ public class Admin extends Persona implements IAdministrarReserva, IAdministrarE
     }
 
     protected void adminSwitchVisualizar(Hotel hotel) {
-        Scanner teclado = new Scanner();
+        Scanner teclado = new Scanner(System.in);
         System.out.println("1- Visualizar Habitaciones del hotel \n" +
                 "2- Visualizar empleados\n" +
                 "3-visualizar Estadias\n" +
@@ -186,7 +186,7 @@ public class Admin extends Persona implements IAdministrarReserva, IAdministrarE
 
     protected void editSwitchHabitaciones(Hotel hotel) {
 
-        Scanner teclado = new Scanner();
+        Scanner teclado = new Scanner(System.in);
         ///Pedir numero de habitacion y asignarlo
         /// Mostrar Habitacion
 
@@ -218,7 +218,7 @@ public class Admin extends Persona implements IAdministrarReserva, IAdministrarE
 
     protected void   editSwitchEmpleados(Hotel hotel){
 
-     Scanner teclado = new Scanner();
+        Scanner teclado = new Scanner(System.in);
      ///Pedir El empleado por nroLegajo
      /// Mostrar mostrar Empleado
 
@@ -249,7 +249,7 @@ public class Admin extends Persona implements IAdministrarReserva, IAdministrarE
 
     protected void   editSwitchEstadias(Hotel hotel){
 
-     Scanner teclado = new Scanner();
+        Scanner teclado = new Scanner(System.in);
      ///Pedir El empleado por nroLegajo
      /// Mostrar mostrar Empleado
 
@@ -296,7 +296,7 @@ public class Admin extends Persona implements IAdministrarReserva, IAdministrarE
 
     protected void   editSwitchReservas(Hotel hotel){
 
-     Scanner teclado = new Scanner();
+        Scanner teclado = new Scanner(System.in);
      ///Pedir El empleado por nroLegajo
      /// Mostrar mostrar Empleado
 
