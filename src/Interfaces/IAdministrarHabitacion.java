@@ -79,7 +79,6 @@ public interface IAdministrarHabitacion {
         }
     }
 
-
     public default Habitacion buscarNumeroHabitacion(Hotel hotel, int numero){
         for(Habitacion habitacion : hotel.getHabitaciones()){
             if(habitacion.getNumero() == numero){
@@ -88,11 +87,5 @@ public interface IAdministrarHabitacion {
         }
         return null;
     }
-
-
-    void eliminarHabitacion(int numero);
-
-
-
 
 }

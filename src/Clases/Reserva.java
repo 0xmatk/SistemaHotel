@@ -9,7 +9,7 @@ public class Reserva {
     protected Date llegada;
     protected Date salida;
     protected boolean estado;
-    private  int ID;
+    private int ID;
     private static int contador  = 0;
 
     public Reserva(Visitante visitante, Habitacion habitacion, Date llegada, Date salida) {

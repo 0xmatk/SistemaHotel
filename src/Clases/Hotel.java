@@ -146,15 +146,8 @@ public class Hotel {
     public void agregarEmpleado(Empleado empleado){
         this.empleados.add(empleado);
     }
-
-
-
-
-
-
-
-
-
-
+    public void eliminarEmpleado(Empleado empleado){
+        this.empleados.remove(empleado);
+    }
 
 }

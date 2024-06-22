@@ -89,7 +89,7 @@ public class Visitante extends Persona implements IAdministrarReserva, IAutentif
 
     public void visitanteSwitch(Hotel hotel) {
         Scanner teclado;
-        teclado = new Scanner();
+        teclado = new Scanner(System.in);
 
 
         System.out.println("1- Visualizar informacion del visitante, sus reservas o su estadia \n" +

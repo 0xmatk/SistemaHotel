@@ -13,6 +13,7 @@ public class Empleado extends Persona{
     public Empleado(String nombre, String apellido, int nroLegajo) {
         super(nombre, apellido);
         this.nroLegajo = nroLegajo;
+        this.estado = true;
     }
 
     public int getNroLegajo() {
@@ -22,7 +23,15 @@ public class Empleado extends Persona{
     public void setNroLegajo(int nroLegajo) {
         this.nroLegajo = nroLegajo;
     }
-    ///=========================================================================================================================
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+///=========================================================================================================================
 
 
     public void empSwitch(Hotel hotel) {
@@ -70,7 +79,7 @@ public class Empleado extends Persona{
 
         switch (opcion) {
             case 1:
-                this.mostrarHabitaciones(hotel);
+                // Metodo de llamado
                 break;
             case 2:
                 /// Metodo de llamado a lista de empleados y mostrar
@@ -281,77 +290,8 @@ public class Empleado extends Persona{
     }
 
     ///=======================================================================================================0
-    @Override
-    public void crearReserva(Visitante visitante, Habitacion habitacion, Date llegada, Date salida, boolean estado) {
-        if (visitante == null || habitacion == null || llegada == null || salida == null) {
-            System.out.println("Por favor, rellenar todos los datos. ");
-        } else {
-            Reserva reserva = new Reserva(visitante, habitacion, llegada, salida);
 
-            hotel.agregarReserva(reserva);
-
-        }
-    }
-    @Override
-    public void editarReserva(int id) {
-        Reserva reserva = hotel.encontrarReserva(id);
-        if(reserva != null) {
-            System.out.println("La reserva con el id " + id + " es:");
-            System.out.println(reserva);
-
-        }else{
-            System.out.println("Reserva no encontrada");
-        }
-
-    }
-
-    @Override
-    public void listarReservas() {
-        hotel.mostrarReservas();
-    }
-
-    @Override
-    public void buscarReserva(int id) {
-       Reserva r =  hotel.encontrarReserva(id);
-
-       if(r != null) {
-           System.out.println("La reserva con el id " + id + " es:");
-           System.out.println(r);
-
-       }else{
-           System.out.println("Reserva no encontrada");
-       }
-    }
-
-
-    @Override
-    public String toString() {
-        return "Empleado{}";
-    }
-
-    @Override
-    public void crearEstadia(Visitante visitante, Habitacion habitacion, boolean checkIn, boolean checkOut, int costo) {
-
-    }
-
-    @Override
-    public void editarEstadia(int ID) {
-
-    }
-
-    @Override
-    public void listarEstadias() {
-        hotel.mostrarEstadias();
-    }
-
-    @Override
-    public void buscarEstadia(int dni) {
-
-    }
-
-
-    @Override
-    public void eliminarHabitacion(int numero) {
+    public void crearReserva(){
 
     }
 }
