@@ -1,7 +1,6 @@
 package Clases;
 
 import java.util.LinkedHashSet;
-import java.util.Collections;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -10,6 +9,7 @@ public class Hotel {
     private Set<Empleado> empleados;
     private Set<Estadia> estadias;
     private Set<Reserva> reservas;
+    private Set<Visitante> visitantes;
 
 
     public Hotel() {
@@ -17,6 +17,7 @@ public class Hotel {
         this.reservas = new LinkedHashSet<>();
         this.estadias = new LinkedHashSet<>();
         this.empleados = new LinkedHashSet<>();
+        this.visitantes = new LinkedHashSet<>();
     }
 
 
@@ -99,16 +100,23 @@ public class Hotel {
         }
     }
 
-    public void eliminarHabitacion(int numero){
+    public void mostrarHabitacionesDisp(){
         for(Habitacion habitacion : habitaciones){
-            if(habitacion.getNumero() == numero){
-                this.habitaciones.remove(habitacion);
-            }else{
-                System.out.println("La habitacion no existe");
-            }
-
+            if(habitacion.isDisponible()){
+            System.out.println(habitacion);
         }
     }
+    }
+
+    public void mostrarHabitacionPart(){
+        Scanner t = new Scanner(System.in);
+        System.out.println("Ingrese numero de habitacion: ");
+        int numero = t.nextInt();
+        Habitacion buscada= this.buscarNumeroHabitacion(numero);
+        System.out.println(buscada);
+
+    }
+
 
     public Habitacion buscarNumeroHabitacion(int numero){
         for(Habitacion habitacion : habitaciones){
@@ -120,6 +128,23 @@ public class Hotel {
     }
 
 
+    public Visitante buscarVisitante(int dni){
+        for(Visitante v : visitantes){
+            if(v.getDni() == dni){
+                return v;
+            }
+        }
+        return null;
+    }
+
+    public Reserva buscarReserva(Reserva reserva){
+        for(Reserva r : reservas){
+            if(r.equals(reserva)){
+                return r;
+            }
+        }
+        return null;
+    }
 
     public Set<Habitacion> getHabitaciones() {
         return habitaciones;
@@ -135,19 +160,6 @@ public class Hotel {
 
     public Set<Reserva> getReservas() {
         return reservas;
-    }
-
-    public void mostrarEmpleados(){
-        for(Empleado empleado : empleados){
-            System.out.println(empleado);
-        }
-    }
-
-    public void agregarEmpleado(Empleado empleado){
-        this.empleados.add(empleado);
-    }
-    public void eliminarEmpleado(Empleado empleado){
-        this.empleados.remove(empleado);
     }
 
 }

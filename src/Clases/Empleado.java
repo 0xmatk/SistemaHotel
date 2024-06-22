@@ -10,6 +10,7 @@ public class Empleado extends Persona{
     private int nroLegajo;
     private boolean estado;
 
+
     public Empleado(String nombre, String apellido, int nroLegajo) {
         super(nombre, apellido);
         this.nroLegajo = nroLegajo;
@@ -39,68 +40,73 @@ public class Empleado extends Persona{
         teclado = new Scanner(System.in);
 
 
-        System.out.println("1- Visualizar informacion del hotel \n" +
-                "2- Editar informacion del hotel\n" +
-                "3-Eliminar informacion del hotel\n" +
-                "4-Crear informacion del hotel\n");
+        System.out.println("1- Habitaciones  \n" +
+                "2- Check in \n" +
+                "3- Check out \n" +
+                "4- Estadia \n" +
+                "5- Reservas \n" +
+                "6- Visitantes \n");
 
         int opcion = teclado.nextInt();
 
 
         switch (opcion) {
             case 1:
-                this.empSwitchVisualizar(hotel);
-                break;
 
+                this.empSwitchHabitaciones(hotel);
+                break;
             case 2:
-                this.empSwitchEditar(hotel);
+                ///Dar check in
+                break;
+            case 3:
+                ///Dar Check out
                 break;
 
-            case 3:
-                this.empSwitchEliminar(hotel);
-                break;
             case 4:
-                this.empSwitchCrear(hotel);
+                this.empSwitchEstadia(hotel);
+                break;
+
+            case 5:
+                this.empSwitchReserva(hotel);
+                break;
+            case 6:
+                this.empSwitchVisitante(hotel);
 
 
         }
     }
 
 
-    protected void empSwitchVisualizar(Hotel hotel) {
+    protected void empSwitchHabitaciones(Hotel hotel) {
         Scanner teclado = new Scanner(System.in);
-        System.out.println("1- Visualizar Habitaciones del hotel \n" +
-                "2- Visualizar Visitantes\n" +
-                "3-visualizar Estadias\n" +
-                "4-Visualizar Reservas\n" );
+        System.out.println("1- Visualizar Habitaciones disponibles \n" +
+                "2- Visualizar habitacion en particular\n" +
+                "3- Visualizar todas las habitaciones");
 
         int opcion = teclado.nextInt();
 
 
         switch (opcion) {
             case 1:
-                // Metodo de llamado
+                ///hotel.mostrarHabitacionesDisp();
                 break;
             case 2:
-                /// Metodo de llamado a lista de empleados y mostrar
+              ///hotel.mostrarHabitacionPart();
                 break;
             case 3:
-                /// Metodo de llamado a lista de Estadias y mostrar
-                break;
-            case 4:
-                hotel.mostrarReservas();
-                break;
+                ///hotel.mostrarHabitaciones();
         }
     }
 
 
-    protected void empSwitchEditar(Hotel hotel) {
+    protected void empSwitchEstadia(Hotel hotel) {
 
         Scanner teclado = new Scanner(System.in);
 
         System.out.println("1-Editar Estadias\n" +
-                "2-Editar Reservas\n" +
-                "3- Editar Visitantes ");
+                "2- Crear Estadia\n" +
+                "3- Vizualizar Estadia" +
+                "3- Eliminar Estadia ");
 
         int opcion = teclado.nextInt();
 
@@ -119,13 +125,14 @@ public class Empleado extends Persona{
         }
     }
 
-    protected void empSwitchEliminar(Hotel hotel) {
+    protected void empSwitchReserva(Hotel hotel) {
 
         Scanner teclado = new Scanner(System.in);
         System.out.println(
-                "1-Eliminar Estadias\n" +
-                "2-Eliminar Reservas\n" +
-                "3- Eliminar Visitantes ");
+                "1- Crear Reserva\n" +
+                "2-Editar Reservas\n" +
+                        "3- Visualizar Reserva" +
+                "3- Eliminar Reserva ");
 
         int opcion = teclado.nextInt();
 
@@ -143,13 +150,14 @@ public class Empleado extends Persona{
         }
     }
 
-    protected void empSwitchCrear(Hotel hotel) {
+    protected void empSwitchVisitante(Hotel hotel) {
 
         Scanner teclado = new Scanner(System.in);
         System.out.println(
-                "1-Crear Estadias\n" +
-                "2-Crear Reservas\n" +
-                "3- Crear Visitantes ");
+                "1-Crear Visitante\n" +
+                "2-Visualizar visitante\n" +
+                "3- Editar Visitante " +
+                        "4- Eliminar Visitante");
 
         int opcion = teclado.nextInt();
 
@@ -291,9 +299,19 @@ public class Empleado extends Persona{
 
     ///=======================================================================================================0
 
-    public void crearReserva(){
 
+    public Reserva crearReserva(Hotel hotel, Visitante visitante, Habitacion habitacion, Date llegada, Date salida){
+        Visitante v = hotel.buscarVisitante(visitante.getDni());
+        if(visitante == null){
+            //darAlta(); interfaz administrarVisitante
+
+        }
+
+
+        return null;
     }
+
+
 }
 
 

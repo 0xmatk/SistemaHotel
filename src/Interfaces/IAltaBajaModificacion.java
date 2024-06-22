@@ -17,7 +17,7 @@ public interface IAltaBajaModificacion {
         Empleado empleado = buscarEmpleado(hotel, nroLegajo);
 
         if(empleado != null){
-            hotel.eliminarEmpleado(empleado);
+            hotel.getEmpleados().remove(empleado);
         }
     }
 
@@ -93,6 +93,8 @@ public interface IAltaBajaModificacion {
 
         return e;
     }
+
+
 
 
 

@@ -10,7 +10,6 @@ public class Visitante extends Persona implements IAdministrarReserva, IAutentif
     private int dni;
     private String origen;
     private String domicilioOrigen;
-    private boolean presente;
     private float gastos;
     private int nroHabitacion;
     private String token;
@@ -18,12 +17,11 @@ public class Visitante extends Persona implements IAdministrarReserva, IAutentif
 
 
 
-    public Visitante(String nombre, String apellido, int dni, String origen, String domicilioOrigen, boolean presente) {
+    public Visitante(String nombre, String apellido, int dni, String origen, String domicilioOrigen) {
         super(nombre, apellido);
         this.dni = dni;
         this.origen = origen;
         this.domicilioOrigen = domicilioOrigen;
-        this.presente = presente;
         this.gastos = getGastos();
         this.nroHabitacion = getNroHabitacion();
         this.token = generateToken();
@@ -53,14 +51,6 @@ public class Visitante extends Persona implements IAdministrarReserva, IAutentif
 
     public void setDomicilioOrigen(String domicilioOrigen) {
         this.domicilioOrigen = domicilioOrigen;
-    }
-
-    public boolean isPresente() {
-        return presente;
-    }
-
-    public void setPresente(boolean presente) {
-        this.presente = presente;
     }
 
     public float getGastos() {
@@ -309,7 +299,6 @@ public class Visitante extends Persona implements IAdministrarReserva, IAutentif
                 "dni=" + dni +
                 ", origen='" + origen + '\'' +
                 ", domicilioOrigen='" + domicilioOrigen + '\'' +
-                ", presente=" + presente +
                 ", gastos=" + gastos +
                 ", nroHabitacion=" + nroHabitacion +
                 ", token='" + token + '\'' +

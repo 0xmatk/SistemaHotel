@@ -71,13 +71,14 @@ public class Reserva {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Reserva reserva = (Reserva) o;
-        return llegada.equals(reserva.llegada) &&
-                salida.equals(reserva.salida);
+        return Objects.equals(visitante.getDni(), reserva.visitante.getDni()) &&
+                Objects.equals(llegada, reserva.llegada) &&
+                Objects.equals(salida, reserva.salida);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(llegada, salida);
+        return Objects.hash(visitante.getDni(), llegada, salida);
     }
 
     @Override
