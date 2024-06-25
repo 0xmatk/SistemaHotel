@@ -1,7 +1,7 @@
 package Genericos;
 
-import Clases.Reserva;
 
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -20,8 +20,10 @@ public class SetGenerico<T> {
         elementos.remove(elemento);
     }
 
+
+
     public Set<T> getElementos() {
-        return elementos;
+        return Collections.unmodifiableSet(elementos);
     }
 
     public boolean contains(T elemento) {

@@ -10,7 +10,7 @@ import java.util.Set;
 public interface IAltaBajaModificacion {
 
     public default void darAlta(Hotel hotel, Empleado empleado){
-        hotel.agregarEmpleado(empleado);
+        //hotel.agregarEmpleado(empleado);
     }
 
     public default void darBaja(Hotel hotel, int nroLegajo){

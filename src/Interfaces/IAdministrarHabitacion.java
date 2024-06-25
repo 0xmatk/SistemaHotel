@@ -9,7 +9,7 @@ public interface IAdministrarHabitacion {
 
 
     public default void mostrarHabitaciones(Hotel hotel){
-        for(Habitacion h : hotel.getHabitaciones()){
+        for(Habitacion h : hotel.getHabitaciones().getElementos()){
             System.out.println(h);
         }
     }
@@ -72,7 +72,7 @@ public interface IAdministrarHabitacion {
         Habitacion habitacion = hotel.buscarNumeroHabitacion(numero);
 
         if(habitacion != null){
-            hotel.eliminarHabitacion(numero);
+            //hotel.eliminarHabitacion(numero);
 
         }else{
             System.out.println("El numero de habitacion no existe.");

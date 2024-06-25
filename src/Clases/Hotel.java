@@ -1,11 +1,13 @@
 package Clases;
 
+import Genericos.SetGenerico;
+
 import java.util.LinkedHashSet;
 import java.util.Scanner;
 import java.util.Set;
 
 public class Hotel {
-    private Set<Habitacion> habitaciones;
+    private SetGenerico<Habitacion> habitaciones;
     private Set<Empleado> empleados;
     private Set<Estadia> estadias;
     private Set<Reserva> reservas;
@@ -13,7 +15,7 @@ public class Hotel {
 
 
     public Hotel() {
-        this.habitaciones = new LinkedHashSet<>();
+        this.habitaciones = new SetGenerico<>();
         this.reservas = new LinkedHashSet<>();
         this.estadias = new LinkedHashSet<>();
         this.empleados = new LinkedHashSet<>();
@@ -95,13 +97,13 @@ public class Hotel {
     }
 
     public void mostrarHabitaciones(){
-        for(Habitacion habitacion : habitaciones){
+        for(Habitacion habitacion : this.habitaciones.getElementos()){
             System.out.println(habitacion);
         }
     }
 
     public void mostrarHabitacionesDisp(){
-        for(Habitacion habitacion : habitaciones){
+        for(Habitacion habitacion : this.habitaciones.getElementos()){
             if(habitacion.isDisponible()){
             System.out.println(habitacion);
         }
@@ -119,7 +121,7 @@ public class Hotel {
 
 
     public Habitacion buscarNumeroHabitacion(int numero){
-        for(Habitacion habitacion : habitaciones){
+        for(Habitacion habitacion : this.habitaciones.getElementos()){
             if(habitacion.getNumero() == numero){
                 return habitacion;
             }
@@ -146,7 +148,10 @@ public class Hotel {
         return null;
     }
 
-    public Set<Habitacion> getHabitaciones() {
+
+
+
+    public SetGenerico<Habitacion> getHabitaciones() {
         return habitaciones;
     }
 
