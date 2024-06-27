@@ -41,52 +41,62 @@ public class Empleado extends Usuario implements IAdministrarVisitante, IAdminis
     public void empSwitch(Hotel hotel) {
         Scanner teclado;
         teclado = new Scanner(System.in);
+        int opcion;
+        System.out.printf("<<<<<<<<<<<<<<<<<<<<<<<<<<Menu de Empleado>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+
+        do {
+            System.out.println("1- Habitaciones  \n" +
+                    "2- Check in \n" +
+                    "3- Check out \n" +
+                    "4- Estadia \n" +
+                    "5- Reservas \n" +
+                    "6- Visitantes \n" +
+                    "Presione ESC para salir....");
+            opcion = teclado.nextInt();
 
 
-        System.out.println("1- Habitaciones  \n" +
-                "2- Check in \n" +
-                "3- Check out \n" +
-                "4- Estadia \n" +
-                "5- Reservas \n" +
-                "6- Visitantes \n");
+            switch (opcion) {
+                case 1:
 
-        int opcion = teclado.nextInt();
+                    this.empSwitchHabitaciones(hotel);
+                    break;
+                case 2:
+                    ///Dar check in
+                    break;
+                case 3:
+                    ///Dar Check out
+                    break;
 
+                case 4:
+                    this.empSwitchEstadia(hotel);
+                    break;
 
-        switch (opcion) {
-            case 1:
-
-                this.empSwitchHabitaciones(hotel);
-                break;
-            case 2:
-                ///Dar check in
-                break;
-            case 3:
-                ///Dar Check out
-                break;
-
-            case 4:
-                this.empSwitchEstadia(hotel);
-                break;
-
-            case 5:
-                this.empSwitchReserva(hotel);
-                break;
-            case 6:
-                this.empSwitchVisitante(hotel);
+                case 5:
+                    this.empSwitchReserva(hotel);
+                    break;
+                case 6:
+                    this.empSwitchVisitante(hotel);
+                default:
+                    break;
 
 
-        }
+            }
+        }while(opcion!=27);
     }
 
 
     protected void empSwitchHabitaciones(Hotel hotel) {
         Scanner teclado = new Scanner(System.in);
+        int opcion;
+
+        do{
+
         System.out.println("1- Visualizar Habitaciones disponibles \n" +
                 "2- Visualizar habitacion en particular\n" +
-                "3- Visualizar todas las habitaciones");
+                "3- Visualizar todas las habitaciones" +
+                "Presione ESC para salir....");
 
-        int opcion = teclado.nextInt();
+       opcion = teclado.nextInt();
 
 
         switch (opcion) {
@@ -98,20 +108,26 @@ public class Empleado extends Usuario implements IAdministrarVisitante, IAdminis
                 break;
             case 3:
                 hotel.mostrarHabitaciones();
+            default:
+                break;
         }
+        }while(opcion!=27);
     }
 
 
     protected void empSwitchEstadia(Hotel hotel) {
-
+        int opcion;
         Scanner teclado = new Scanner(System.in);
+
+        do{
 
         System.out.println("1-Editar Estadias\n" +
                 "2- Crear Estadia\n" +
                 "3- Vizualizar Estadia" +
-                "3- Eliminar Estadia ");
+                "4- Eliminar Estadia " +
+                "Presione ESC para salir....");
 
-        int opcion = teclado.nextInt();
+        opcion = teclado.nextInt();
 
 
         switch (opcion) {
@@ -124,20 +140,26 @@ public class Empleado extends Usuario implements IAdministrarVisitante, IAdminis
             case 3:
                 this.editSwitchVisitantes(hotel);
                 break;
+            default:
+                break;
 
         }
+        }while(opcion!=27);
     }
 
     protected void empSwitchReserva(Hotel hotel) {
-
+        int opcion;
         Scanner teclado = new Scanner(System.in);
+
+        do{
         System.out.println(
                 "1- Crear Reserva\n" +
                 "2-Editar Reservas\n" +
                         "3- Visualizar Reserva" +
-                "3- Eliminar Reserva ");
+                "4- Eliminar Reserva " +
+                        "Presione ESC para salir....");
 
-        int opcion = teclado.nextInt();
+         opcion = teclado.nextInt();
 
 
         switch (opcion) {
@@ -150,36 +172,35 @@ public class Empleado extends Usuario implements IAdministrarVisitante, IAdminis
             case 3:
                 /// Metodo de llamado a lista de Estadias y luego poder Eliminar
                 break;
+            default:
+                break;
         }
+        }while(opcion!=27);
     }
 
     protected void empSwitchVisitante(Hotel hotel) {
         Visitante v = null;
-
-        boolean salir = false;
         Scanner teclado = new Scanner(System.in);
         int opcion;
-        while (!salir) {
+        do {
             System.out.println(
                     "1- Crear Visitante\n" +
                             "2- Visualizar visitantes\n" +
                             "3- Editar Visitante\n" +
                             "4- Eliminar Visitante\n" +
-                            "5- Salir\n" +
-                            "Elige una opción: "
+                            "Presione Esc para salir...\n"
             );
 
             opcion = teclado.nextInt();
             teclado.nextLine();
 
 
-
             switch (opcion) {
                 case 1:
                     v = crearVisitante(hotel);
-                    if(v != null) {
+                    if (v != null) {
                         darAlta(hotel, v);
-                    }else{
+                    } else {
                         System.out.println("NULL");
                     }
 
@@ -196,24 +217,25 @@ public class Empleado extends Usuario implements IAdministrarVisitante, IAdminis
                     int dni = teclado.nextInt();
                     darBaja(hotel, dni);
                     break;
-                case 5:
-                    salir = true;
-                    System.out.println("Saliendo");
-                    break;
+
                 default:
                     System.out.println("Opcion invalida");
+                    break;
             }
-        }
+        }while(opcion != 27);
+
         teclado.close();
     }
 
 
 
     protected void   editSwitchEstadias(Hotel hotel){
-
+        int opcion;
         Scanner teclado = new Scanner(System.in);
         ///Pedir El empleado por nroLegajo
         /// Mostrar mostrar Empleado
+
+        do{
 
         System.out.println("1- Editar el visitante de la  Estadia \n" +
                 "2- Editar la llegada a la  Estadia\n" +
@@ -222,9 +244,10 @@ public class Empleado extends Usuario implements IAdministrarVisitante, IAdminis
                 "5- Editar el ID de la Estadia\n" +
                 "6- Editar estado del Check in de la estadia\n" +
                 "7- Editar estado del check out de la Estadia\n" +
-                "8- Editar el coste de la Estadia\n");
+                "8- Editar el coste de la Estadia\n" +
+                "Presione ESC para salir....");
 
-        int opcion = teclado.nextInt();
+        opcion = teclado.nextInt();
 
 
         switch (opcion) {
@@ -252,23 +275,28 @@ public class Empleado extends Usuario implements IAdministrarVisitante, IAdminis
             case 8:
                 /// Solicitar y asignar
                 break;
+            default:
+                break;
         }
+        }while(opcion!=27);
 
     }
 
     protected void   editSwitchReservas(Hotel hotel){
-
+        int opcion;
         Scanner teclado = new Scanner(System.in);
         ///Pedir El empleado por nroLegajo
         /// Mostrar mostrar Empleado
+
+        do{
 
         System.out.println("1- Editar el visitante de la  Reserva \n" +
                 "2- Editar la llegada a la  Reserva\n" +
                 "3-Editar la salida de la  Reserva\n" +
                 "4-Editar estado de la  Reserva\n" +
-                "5- Editar el ID de la Reserva");
-
-        int opcion = teclado.nextInt();
+                "5- Editar el ID de la Reserva" +
+                "Presione ESC para salir....");
+        opcion = teclado.nextInt();
 
 
         switch (opcion) {
@@ -287,14 +315,22 @@ public class Empleado extends Usuario implements IAdministrarVisitante, IAdminis
             case 5:
                 /// Solicitar y asignar
                 break;
+            default:
+                break;
 
         }
+        }while(opcion!=27);
 
     }
 
     protected void  editSwitchVisitantes(Hotel hotel){ Scanner teclado = new Scanner(System.in);
         ///Pedir El empleado por nroLegajo
         /// Mostrar mostrar Empleado
+        int opcion;
+
+
+        do{
+
 
         System.out.println("1- Editar el DNI del  visitante  \n" +
                 "2- Editar el Origen del visitante \n" +
@@ -303,9 +339,10 @@ public class Empleado extends Usuario implements IAdministrarVisitante, IAdminis
                 "5- Editar el Gasto del visitante" +
                 "6- Editar el nro de Habitacion del visitante" +
                 "7- Editar el token del visitante" +
-                "8- Editar la Presencia del visitante");
+                "8- Editar la Presencia del visitante" +
+                "Presione ESC para salir....");
 
-        int opcion = teclado.nextInt();
+        opcion = teclado.nextInt();
 
 
         switch (opcion) {
@@ -324,8 +361,11 @@ public class Empleado extends Usuario implements IAdministrarVisitante, IAdminis
             case 5:
                 /// Solicitar y asignar
                 break;
+            default:
+                break;
 
         }
+        }while(opcion!=27);
 
     }
 

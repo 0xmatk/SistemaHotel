@@ -1,13 +1,12 @@
 package Clases;
 
-import Interfaces.IAutentificacionUsuario;
-
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Sistema implements IAutentificacionUsuario {
+public class Sistema  {
     private Scanner teclado ;
-    private List<Persona> usuarios;
+    private List<Usuario> usuarios;
     private Hotel hotel;
 /// Sacaria esos atributos y colocaria una coleccion de usuarios y el hotel. Para con iniciarseccion te entregue el Usuario utilizado
 /// Buscar como hacer limpieza de pantalla
@@ -18,11 +17,12 @@ public class Sistema implements IAutentificacionUsuario {
     public Sistema() {
         this.teclado = new Scanner(System.in);
        this.hotel = new Hotel();
+       this.usuarios= new LinkedList<>();
     }
 ///=====================================================================================================================
 ///<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<SWITCHS/ TAREAS A REALIZAR>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-    public void actividadUsuario(Persona usuario){
+    public void actividadUsuario(Usuario usuario){
         if(usuario instanceof Administrador){
             Administrador adm= (Administrador) usuario;
            adm.adminSwitch(this.hotel);
@@ -39,32 +39,46 @@ public class Sistema implements IAutentificacionUsuario {
         }
     }
 
+    public void iniciarSesion() {
+        int flag=0;
+        Usuario aux= null;
+        System.out.printf("===========================================================================================================");
+        System.out.printf("=======================================Bienvenido a nuestro sistema Hotelero===============================");
+        System.out.printf("===========================================================================================================");
 
+        while(flag==0) {
+            System.out.printf("Ingrese su usuario:...");
+            String usua = this.teclado.next();
+            System.out.printf("Ingrese su contraseña:...");
+            String contraseña = this.teclado.next();
+
+
+
+            if (usua == null || contraseña == null) {
+                System.out.printf("Ingrese nuevamente los parametros pedidos");
+            } else {
+                for (Usuario Usuario : this.usuarios) {
+                    if (Usuario.getUsuario().equals(usua) && Usuario.getClave().equals(contraseña)) {
+                        aux = Usuario;
+                    }
+
+                }
+                if (aux == null) {
+                    System.out.printf("Su usuario no existe.");
+                }
+                else{
+                    flag=1;
+                    this.actividadUsuario(aux);
+                }
+            }
+
+
+        }
+    }
 
 ///=====================================================================================================================
 
 
 
-    @Override
-    public boolean iniciarSesion(String nombreUsuario, String contrasena) {
 
-        if(verificarCredenciales(nombreUsuario, contrasena) == true){
-
-
-        }else{
-            System.out.println("Usuario y contraseña Incorrectos, Intente nuevamente");
-        }
-
-        return false;
-    }
-
-    @Override
-    public void cerrarSesion() {
-
-    }
-
-    @Override
-    public boolean verificarCredenciales(String nombreUsuario, String contrasena) {
-        return IAutentificacionUsuario.super.verificarCredenciales(nombreUsuario, contrasena);
-    }
 }
