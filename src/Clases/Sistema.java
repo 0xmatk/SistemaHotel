@@ -42,9 +42,9 @@ public class Sistema  {
     public void iniciarSesion() {
         int flag=0;
         Usuario aux= null;
-        System.out.printf("===========================================================================================================");
-        System.out.printf("=======================================Bienvenido a nuestro sistema Hotelero===============================");
-        System.out.printf("===========================================================================================================");
+        System.out.printf("===========================================================================================================\n");
+        System.out.printf("=======================================Bienvenido a nuestro sistema Hotelero===============================\n");
+        System.out.printf("===========================================================================================================\n");
 
         while(flag==0) {
             System.out.printf("Ingrese su usuario:...");
@@ -55,7 +55,7 @@ public class Sistema  {
 
 
             if (usua == null || contraseña == null) {
-                System.out.printf("Ingrese nuevamente los parametros pedidos");
+                System.out.printf("Ingrese nuevamente los parametros pedidos\n");
             } else {
                 for (Usuario Usuario : this.usuarios) {
                     if (Usuario.getUsuario().equals(usua) && Usuario.getClave().equals(contraseña)) {

@@ -13,7 +13,7 @@ public class Hotel {
     private SetGenerico<Estadia> estadias;
     private SetGenerico<Reserva> reservas;
     private SetGenerico<Visitante> visitantes;
-    private Administrador adm;
+    private Administrador admin;
 
 
     public Hotel() {

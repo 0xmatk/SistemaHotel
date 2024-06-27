@@ -361,7 +361,7 @@ public class Administrador extends Usuario implements IAdministrarHabitacion {
              "3-Editar la salida de la  Reserva\n" +
              "4-Editar estado de la  Reserva\n" +
              "5- Editar el ID de la Reserva\n \n" +
-             "Presione ESC para salir....");
+             "Presione ESC para salir....\n");
 
      opcion = teclado.nextInt();
 

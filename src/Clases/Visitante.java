@@ -19,6 +19,7 @@ public class Visitante extends Usuario implements IAdministrarEstadia {
 
 
     public Visitante(){
+
         super();
     }
 

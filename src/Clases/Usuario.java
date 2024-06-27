@@ -7,7 +7,9 @@ public abstract class Usuario extends Persona{
     protected String clave;
 
 
-    public Usuario(){}
+    public Usuario(){
+
+    }
 
     public Usuario(String nombre, String apellido, String usuario, String clave) {
         super(nombre, apellido);

@@ -245,7 +245,7 @@ public class Empleado extends Usuario implements IAdministrarVisitante, IAdminis
                 "6- Editar estado del Check in de la estadia\n" +
                 "7- Editar estado del check out de la Estadia\n" +
                 "8- Editar el coste de la Estadia\n" +
-                "Presione ESC para salir....");
+                "Presione ESC para salir....\n");
 
         opcion = teclado.nextInt();
 
