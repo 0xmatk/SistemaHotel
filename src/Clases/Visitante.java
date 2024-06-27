@@ -1,33 +1,36 @@
 package Clases;
 
+import Interfaces.IAdministrarEstadia;
 import Interfaces.IAdministrarReserva;
 import Interfaces.IAutentificador;
+
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Scanner;
 
 
-public class Visitante extends Persona implements IAdministrarReserva, IAutentificador {
+public class Visitante extends Usuario implements IAdministrarEstadia {
     private int dni;
     private String origen;
     private String domicilioOrigen;
     private float gastos;
     private int nroHabitacion;
-    private String token;
     private boolean estado;
 
 
-
-    public Visitante(String nombre, String apellido, int dni, String origen, String domicilioOrigen) {
-        super(nombre, apellido);
-        this.dni = dni;
-        this.origen = origen;
-        this.domicilioOrigen = domicilioOrigen;
-        this.gastos = getGastos();
-        this.nroHabitacion = getNroHabitacion();
-        this.token = generateToken();
-
+    public Visitante(){
+        super();
     }
 
+    public Visitante(String nombre, String apellido, String usuario, String clave, int dni,String domicilioOrigen, String origen) {
+        super(nombre, apellido, usuario, clave);
+        this.dni = dni;
+        this.estado = true;
+        this.nroHabitacion = getNroHabitacion();
+        this.gastos = getGastos();
+        this.domicilioOrigen = domicilioOrigen;
+        this.origen = origen;
+    }
 
     public int getDni() {
         return dni;
@@ -69,9 +72,14 @@ public class Visitante extends Persona implements IAdministrarReserva, IAutentif
         this.nroHabitacion = nroHabitacion;
     }
 
-    public String getToken() {
-        return token;
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
     ///==============================================================================================================
 
 
@@ -274,24 +282,6 @@ public class Visitante extends Persona implements IAdministrarReserva, IAutentif
 
     ///============================================================================================================
 
-    public void crearReserva(Visitante visitante, Habitacion habitacion, Date llegada, Date salida, boolean estado){
-
-   }
-
-    @Override
-    public void editarReserva(int id) {
-
-    }
-
-    @Override
-    public void listarReservas() {
-
-    }
-
-    @Override
-    public void buscarReserva(int dni) {
-
-    }
 
     @Override
     public String toString() {
@@ -301,9 +291,27 @@ public class Visitante extends Persona implements IAdministrarReserva, IAutentif
                 ", domicilioOrigen='" + domicilioOrigen + '\'' +
                 ", gastos=" + gastos +
                 ", nroHabitacion=" + nroHabitacion +
-                ", token='" + token + '\'' +
-                ", apellido='" + apellido + '\'' +
-                ", nombre='" + nombre + '\'' +
-                "} " + super.toString();
+                ", estado=" + estado +
+                "} ";
+    }
+
+    @Override
+    public void crearEstadia(Hotel hotel) {
+
+    }
+
+    @Override
+    public void editarEstadia(Hotel hotel, int id) {
+
+    }
+
+    @Override
+    public void listarEstadias(Hotel hotel) {
+        hotel.mostrarEstadiasPorDNI(getDni());
+    }
+
+    @Override
+    public void buscarEstadia(Hotel hotel, int id) {
+
     }
 }

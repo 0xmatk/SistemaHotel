@@ -2,10 +2,11 @@ package Genericos;
 
 
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class SetGenerico<T> {
+public class SetGenerico<T> implements Iterable<T> {
     private Set<T> elementos;
 
     public SetGenerico() {
@@ -28,6 +29,10 @@ public class SetGenerico<T> {
 
     public boolean contains(T elemento) {
         return elementos.contains(elemento);
+    }
+
+    public Iterator<T> iterator() {
+        return elementos.iterator();
     }
 
 

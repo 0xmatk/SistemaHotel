@@ -2,19 +2,22 @@ package Clases;
 import Interfaces.IAdministrarEstadia;
 import Interfaces.IAdministrarHabitacion;
 import Interfaces.IAdministrarReserva;
+import Interfaces.IAdministrarVisitante;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
-public class Empleado extends Persona{
+public class Empleado extends Usuario implements IAdministrarVisitante, IAdministrarEstadia{
     private int nroLegajo;
     private boolean estado;
 
 
-    public Empleado(String nombre, String apellido, int nroLegajo) {
-        super(nombre, apellido);
+    public Empleado(String nombre, String apellido, String usuario, String clave, int nroLegajo) {
+        super(nombre, apellido, usuario, clave);
         this.nroLegajo = nroLegajo;
-        this.estado = true;
+        this.estado = isEstado();
     }
 
     public int getNroLegajo() {
@@ -88,13 +91,13 @@ public class Empleado extends Persona{
 
         switch (opcion) {
             case 1:
-                ///hotel.mostrarHabitacionesDisp();
+                hotel.mostrarHabitacionesDisp();
                 break;
             case 2:
-              ///hotel.mostrarHabitacionPart();
+              hotel.mostrarHabitacionPart();
                 break;
             case 3:
-                ///hotel.mostrarHabitaciones();
+                hotel.mostrarHabitaciones();
         }
     }
 
@@ -116,7 +119,7 @@ public class Empleado extends Persona{
                 this.editSwitchEstadias(hotel);
                 break;
             case 2:
-                this.editSwitchReservas(hotel);
+                crearEstadia(hotel);
                 break;
             case 3:
                 this.editSwitchVisitantes(hotel);
@@ -151,30 +154,59 @@ public class Empleado extends Persona{
     }
 
     protected void empSwitchVisitante(Hotel hotel) {
+        Visitante v = null;
 
+        boolean salir = false;
         Scanner teclado = new Scanner(System.in);
-        System.out.println(
-                "1-Crear Visitante\n" +
-                "2-Visualizar visitante\n" +
-                "3- Editar Visitante " +
-                        "4- Eliminar Visitante");
+        int opcion;
+        while (!salir) {
+            System.out.println(
+                    "1- Crear Visitante\n" +
+                            "2- Visualizar visitantes\n" +
+                            "3- Editar Visitante\n" +
+                            "4- Eliminar Visitante\n" +
+                            "5- Salir\n" +
+                            "Elige una opción: "
+            );
 
-        int opcion = teclado.nextInt();
+            opcion = teclado.nextInt();
+            teclado.nextLine();
 
 
-        switch (opcion) {
-            case 1:
-                // Sub-menu
-               //hotel.agregarEstadia();
-                break;
-            case 2:
-                //hotel.agregarReserva();
-                break;
-            case 3:
-                /// Metodo de llamado a lista de Estadias y luego poder Crear
-                break;
+
+            switch (opcion) {
+                case 1:
+                    v = crearVisitante(hotel);
+                    if(v != null) {
+                        darAlta(hotel, v);
+                    }else{
+                        System.out.println("NULL");
+                    }
+
+                    break;
+                case 2:
+                    System.out.println("Mostrando visitantes: ");
+                    //hotel.getVisitantes();
+                    break;
+                case 3:
+                    //
+                    break;
+                case 4:
+                    System.out.println("Ingrese el dni del visitante a dar de baja: ");
+                    int dni = teclado.nextInt();
+                    darBaja(hotel, dni);
+                    break;
+                case 5:
+                    salir = true;
+                    System.out.println("Saliendo");
+                    break;
+                default:
+                    System.out.println("Opcion invalida");
+            }
         }
+        teclado.close();
     }
+
 
 
     protected void   editSwitchEstadias(Hotel hotel){
@@ -312,6 +344,125 @@ public class Empleado extends Persona{
     }
 
 
+    @Override
+    public void crearEstadia(Hotel hotel) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Creación de nueva estadía:");
+
+        try {
+            System.out.print("Ingrese el DNI del visitante: ");
+            int dni = scanner.nextInt();
+            scanner.nextLine();
+
+            Visitante visitante = hotel.buscarVisitante(dni);
+            if (visitante == null) {
+                System.out.println("El visitante con DNI " + dni + " no está registrado.");;
+            }
+
+            hotel.mostrarHabitacionesDisp();
+            System.out.print("Ingrese el número de habitación: ");
+            int numeroHabitacion = scanner.nextInt();
+            scanner.nextLine();
+
+            Habitacion habitacion = hotel.buscarNumeroHabitacion(numeroHabitacion);
+            if (habitacion == null) {
+                System.out.println("La habitación número " + numeroHabitacion + " no está disponible.");
+
+            }
+
+            Date fechaLlegada = ingresarFecha("Fecha de llegada (yyyy-MM-dd): ", scanner);
+            Date fechaSalida = ingresarFecha("Fecha de salida (yyyy-MM-dd): ", scanner);
+            if (fechaLlegada == null || fechaSalida == null || fechaLlegada.after(fechaSalida)) {
+                System.out.println("Las fechas ingresadas no son válidas.");
+
+            }
+
+            Estadia estadia = new Estadia(visitante, habitacion, fechaLlegada, fechaSalida);
+            hotel.getEstadias().add(estadia);
+
+            System.out.println("Estadía creada y registrada correctamente.");
+
+        } catch (Exception e) {
+            System.out.println("Error al ingresar datos para la estadía: " + e.getMessage());
+        } finally {
+            scanner.close();
+        }
+    }
+
+    private Date ingresarFecha(String mensaje, Scanner scanner) {
+        System.out.print(mensaje);
+        String fechaStr = scanner.nextLine();
+
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            sdf.setLenient(false); // Para que sea estricto en el formato
+            return sdf.parse(fechaStr);
+        } catch (ParseException e) {
+            System.out.println("Formato de fecha incorrecto. Ingrese la fecha nuevamente.");
+
+        }
+        return null;
+    }
+
+
+
+    @Override
+    public void editarEstadia(Hotel hotel, int id) {
+        Scanner scanner = new Scanner(System.in);
+
+        hotel.mostrarEstadias();
+
+        System.out.print("Ingrese el ID de la estadía que desea editar: ");
+        int idEstadia = scanner.nextInt();
+        scanner.nextLine();
+
+
+        Estadia estadia = hotel.encontrarEstadia(idEstadia);
+        if (estadia == null) {
+            System.out.println("No se encontró ninguna estadía con el ID ingresado.");
+           return;
+        }
+
+
+        System.out.println("Detalles actuales de la estadía:");
+        System.out.println(estadia);
+
+
+        System.out.println("Ingrese las nuevas fechas de llegada y salida (yyyy-MM-dd). Deje en blanco para no modificar.");
+
+        Date nuevaFechaLlegada = ingresarFecha("Nueva fecha de llegada: ", scanner);
+        Date nuevaFechaSalida = ingresarFecha("Nueva fecha de salida: ", scanner);
+
+
+        System.out.println("Desea cambiar la habitación asignada? (S/N)");
+        String opcionCambiarHabitacion = scanner.nextLine().trim();
+        if (opcionCambiarHabitacion.equalsIgnoreCase("S")) {
+            System.out.println("Ingrese el numero de habitacion a cambiar: ");
+            hotel.mostrarHabitaciones();
+            scanner.nextInt();
+            scanner.nextLine();
+        }
+
+        if (nuevaFechaLlegada != null) {
+            estadia.setLlegada(nuevaFechaLlegada);
+        }
+        if (nuevaFechaSalida != null) {
+            estadia.setSalida(nuevaFechaSalida);
+        }
+
+
+        System.out.println("Estadía editada correctamente.");
+    }
+
+    @Override
+    public void listarEstadias(Hotel hotel) {
+        hotel.mostrarEstadias();
+    }
+
+    @Override
+    public void buscarEstadia(Hotel hotel, int id) {
+        Estadia e = hotel.encontrarEstadia(id);
+    }
 }
 
 

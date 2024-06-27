@@ -66,7 +66,7 @@ public interface IAltaBajaModificacion {
     }
 
     public default Empleado buscarEmpleado(Hotel hotel, int nroLegajo){
-        for(Empleado e : hotel.getEmpleados()){
+        for(Empleado e : hotel.getEmpleados().getElementos()){
             if(e.getNroLegajo() == nroLegajo){
                 return e;
             }
@@ -75,12 +75,12 @@ public interface IAltaBajaModificacion {
         return null;
     }
 
-    public default Empleado crearEmpleado(Hotel hotel, String nombre, String apellido, int nroLegajo){
+    public default Empleado crearEmpleado(Hotel hotel, String nombre, String apellido, int nroLegajo, String usuario, String clave){
         Empleado e = buscarEmpleado(hotel, nroLegajo);
 
         if(e == null){
             if(nombre != null && apellido != null && nroLegajo < 0){
-                Empleado empleado = new Empleado(nombre, apellido, nroLegajo);
+                Empleado empleado = new Empleado(nombre, apellido, clave, usuario, nroLegajo);
                 darAlta(hotel, empleado);
 
             }else{

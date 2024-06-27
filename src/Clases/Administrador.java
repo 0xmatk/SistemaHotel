@@ -1,6 +1,7 @@
 package Clases;
 
 import Interfaces.IAdministrarEstadia;
+import Interfaces.IAdministrarHabitacion;
 import Interfaces.IAdministrarReserva;
 import Interfaces.IAltaBajaModificacion;
 
@@ -8,11 +9,11 @@ import java.util.Date;
 import java.util.Scanner;
 
 
-public class Admin extends Persona {
+public class Administrador extends Persona implements IAdministrarHabitacion {
     private String usuario;
     private String contrasenia;
 
-    public Admin(String nombre, String apellido) {
+    public Administrador(String nombre, String apellido) {
         super(nombre, apellido);
         this.usuario = "admin";
         this.contrasenia = "1234";
@@ -73,7 +74,8 @@ public class Admin extends Persona {
 
         switch (opcion) {
             case 1:
-                ///Metodo de llamado a lista de habitaciones y mostrar
+                System.out.println("Visualizando Habitaciones del hotel");
+               hotel.mostrarHabitaciones();
                 break;
             case 2:
                 /// Metodo de llamado a lista de empleados y mostrar
@@ -93,7 +95,7 @@ public class Admin extends Persona {
 
     protected void adminSwitchEditar(Hotel hotel) {
 
-        Scanner teclado = new Scanner();
+        Scanner teclado = new Scanner(System.in);
 
         System.out.println("1- Editar Habitaciones del hotel \n" +
                 "2- Editar empleados\n" +
@@ -125,7 +127,7 @@ public class Admin extends Persona {
 
     protected void adminSwitchEliminar(Hotel hotel) {
 
-        Scanner teclado = new Scanner();
+        Scanner teclado = new Scanner(System.in);
         System.out.println("1- Eliminar Habitaciones del hotel \n" +
                 "2- Eliminar empleados\n" +
                 "3-Eliminar Estadias\n" +
@@ -155,18 +157,20 @@ public class Admin extends Persona {
 
     protected void adminSwitchCrear(Hotel hotel) {
 
-        Scanner teclado = new Scanner();
+        Scanner teclado = new Scanner(System.in);
         System.out.println("1- Crear Habitaciones del hotel \n" +
                 "2- Crear empleados\n" +
                 "3-Crear Estadias\n" +
                 "4-Crear Reservas\n" +
-                "5- Crear Visitantes ");
+                "5- Crear Visitantes\n " +
+                "6-Volver");
 
         int opcion = teclado.nextInt();
 
         switch (opcion) {
             case 1:
-                ///Metodo de llamado a lista de habitaciones y luego poder Crear
+                crearHabitacion(hotel);
+
                 break;
             case 2:
                 /// Metodo de llamado a lista de empleados y luego poder Crear
@@ -180,7 +184,10 @@ public class Admin extends Persona {
             case 5:
                 /// Metodo de llamado a lista de Visitantes y luego poder Crear
                 break;
+            case 6:
+                adminSwitch(hotel);
         }
+
     }
 
 
@@ -193,7 +200,8 @@ public class Admin extends Persona {
         System.out.println("1- Editar tipo de la habitacion \n" +
                 "2- Editar numero de la habitacion\n" +
                 "3-Editar coste de la habitacion\n" +
-                "4-Editar diponibilidad\n");
+                "4-Editar diponibilidad\n +" +
+                "5-Volver\n");
 
         int opcion = teclado.nextInt();
 
@@ -210,7 +218,8 @@ public class Admin extends Persona {
                 break;
             case 4:
                 ///Solicitar nueva disponibilidad y asignar
-
+            case 5:
+                adminSwitch(hotel);
         }
 
 
@@ -330,7 +339,7 @@ public class Admin extends Persona {
 
  }
 
-    protected void  editSwitchVisitantes(Hotel hotel){ Scanner teclado = new Scanner();
+    protected void  editSwitchVisitantes(Hotel hotel){ Scanner teclado = new Scanner(System.in);
       ///Pedir El empleado por nroLegajo
       /// Mostrar mostrar Empleado
 

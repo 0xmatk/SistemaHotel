@@ -9,22 +9,19 @@ public class Main {
     public static void main(String[] args) {
 
         Sistema sistema = new Sistema();
-      Habitacion habitacion = new Habitacion("tipo", true, 1, 1);
+        Habitacion habitacion = new Habitacion("Tipo", 100, 1);
         Date llegada = new Date();
         Date salida = new Date();
         Date llegada2 = new Date();
         llegada2.setTime(20);
 
 
-        Empleado empleado = new Empleado("Matias", "Klingeman", 1);
-        Admin adminprincipal= new Admin("Pepe", "ganga");
-        Visitante visitante = new Visitante("Jose", "Perez", 1213, "Mar del Plata", "Calle123", true);
-        Reserva reserva = new Reserva(visitante, habitacion, null, null);
+        //Admin admin = new Admin("Admin", "Admin");
+        Empleado empleado = new Empleado("Matias", "Klingeman", "mklingeman", "123", 1);
+
+        sistema.actividadUsuario(empleado);
 
 
-
-
-        System.out.println(visitante);
 
 
 

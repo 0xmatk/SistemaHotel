@@ -23,8 +23,8 @@ public class Sistema implements IAutentificacionUsuario {
 ///<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<SWITCHS/ TAREAS A REALIZAR>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
     public void actividadUsuario(Persona usuario){
-        if(usuario instanceof Admin){
-            Admin adm= (Admin) usuario;
+        if(usuario instanceof Administrador){
+            Administrador adm= (Administrador) usuario;
            adm.adminSwitch(this.hotel);
         }else{
             if(usuario instanceof Empleado){

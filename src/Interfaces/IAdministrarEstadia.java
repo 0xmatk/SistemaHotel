@@ -2,12 +2,15 @@ package Interfaces;
 
 import Clases.Estadia;
 import Clases.Habitacion;
+import Clases.Hotel;
 import Clases.Visitante;
 import java.util.Date;
 
 public interface IAdministrarEstadia {
-    void crearEstadia(Visitante visitante, Habitacion habitacion, boolean checkIn, boolean checkOut, int costo);
-    void editarEstadia(int ID);
-    void listarEstadias();
-    void buscarEstadia(int dni);
+    void crearEstadia(Hotel hotel);
+    void editarEstadia(Hotel hotel, int id);
+    void listarEstadias(Hotel hotel);
+    void buscarEstadia(Hotel hotel, int id);
+
+
 }

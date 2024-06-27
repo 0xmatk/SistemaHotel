@@ -1,9 +1,10 @@
 package Clases;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class Reserva {
+public class Reserva implements Serializable {
     protected Visitante visitante;
     protected Habitacion habitacion;
     protected Date llegada;

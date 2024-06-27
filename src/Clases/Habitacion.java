@@ -1,15 +1,23 @@
 package Clases;
 
-public class Habitacion {
+
+import java.io.Serializable;
+import Enum.EstadoHabitacion;
+
+
+public class Habitacion implements Serializable {
     private String tipo;
     private int numero;
     private int coste;
-    private boolean disponible;
+    private EstadoHabitacion estado;
 
 
-    public Habitacion(String tipo, boolean disponible, int coste, int numero) {
+
+    public Habitacion(){}
+
+    public Habitacion(String tipo,int coste, int numero) {
         this.tipo = tipo;
-        this.disponible = true;
+        this.estado = EstadoHabitacion.DISPONIBLE;
         this.coste = coste;
         this.numero = numero;
     }
@@ -38,21 +46,21 @@ public class Habitacion {
         this.numero = numero;
     }
 
-    public boolean isDisponible() {
-        return disponible;
+    public EstadoHabitacion getEstado() {
+        return estado;
     }
 
-    public void setDisponible(boolean disponible) {
-        this.disponible = disponible;
+    public void setEstado(EstadoHabitacion estado) {
+        this.estado = estado;
     }
 
     @Override
     public String toString() {
-        return "Clases.Habitacion{" +
+        return "Habitacion{" +
                 "tipo='" + tipo + '\'' +
                 ", numero=" + numero +
                 ", coste=" + coste +
-                ", disponible=" + disponible +
+                ", estado=" + estado +
                 '}';
     }
 }

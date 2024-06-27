@@ -5,62 +5,57 @@ import Genericos.SetGenerico;
 import java.util.LinkedHashSet;
 import java.util.Scanner;
 import java.util.Set;
+import Enum.EstadoHabitacion;
 
 public class Hotel {
     private SetGenerico<Habitacion> habitaciones;
-    private Set<Empleado> empleados;
-    private Set<Estadia> estadias;
-    private Set<Reserva> reservas;
-    private Set<Visitante> visitantes;
+    private SetGenerico<Empleado> empleados;
+    private SetGenerico<Estadia> estadias;
+    private SetGenerico<Reserva> reservas;
+    private SetGenerico<Visitante> visitantes;
 
 
     public Hotel() {
         this.habitaciones = new SetGenerico<>();
-        this.reservas = new LinkedHashSet<>();
-        this.estadias = new LinkedHashSet<>();
-        this.empleados = new LinkedHashSet<>();
-        this.visitantes = new LinkedHashSet<>();
+        this.reservas = new SetGenerico<>();;
+        this.estadias = new SetGenerico<>();
+        this.empleados = new SetGenerico<>();
+        this.visitantes = new SetGenerico<>();
     }
 
 
 
-    public void agregarReserva(Reserva reserva) {
-        for(Reserva r : reservas) {
+    public void crearReserva(Reserva reserva) {
+        for(Reserva r : getReservas()) {
             if (reserva.getLlegada().equals(r.getLlegada()) && reserva.getSalida().equals(r.getSalida())) {
                 System.out.println("Error: La nueva reserva es igual a una reserva existente.");
                 return;
             }
         }
-        reserva.habitacion.setDisponible(false);
+        reserva.habitacion.setEstado(EstadoHabitacion.NO_DISPONIBLE);
         reservas.add(reserva);
 
     }
 
     public void agregarEstadia(Estadia estadia) {
-        boolean flag = reservas.add(estadia);
-
-        if(flag){
-            System.out.println("Se agrego la estadia.");
-        }else{
-            System.out.println("No se agrego la estadia. La estadia ya existe. ");
-        }
+        getEstadias().add(estadia);
     }
 
     public void mostrarEstadias(){
-        for(Estadia estadia : estadias){
+        for(Estadia estadia : getEstadias()){
             System.out.println(estadia);
         }
     }
 
 
     public void mostrarReservas(){
-        for(Reserva reserva: reservas){
+        for(Reserva reserva: getReservas()){
             System.out.println(reserva);
         }
     }
 
     public Reserva encontrarReserva(int id){
-        for(Reserva r : reservas){
+        for(Reserva r : getReservas()){
             if(r.getID() == id){
                 return r;
             }
@@ -70,16 +65,17 @@ public class Hotel {
     }
 
     public void eliminarReserva(int id){
-        for(Reserva r : reservas){
-            if(r.getID() == id){
-                r.setEstado(false);
-            }
-        }
+       Reserva r = encontrarReserva(id);
+       if(r != null){
+           r.setEstado(false);
+       }else{
+           System.out.println("No se encontro el reserva.");
+       }
     }
 
 
     public Estadia encontrarEstadia(int id){
-        for(Estadia estadia : estadias){
+        for(Estadia estadia : getEstadias()){
             if(estadia.getID() == id){
                 return estadia;
             }
@@ -89,25 +85,39 @@ public class Hotel {
     }
 
     public void eliminarEstadia(int id){
-        for(Estadia estadia : estadias){
+        for(Estadia estadia : getEstadias()){
             if(estadia.getID() == id){
                 estadia.setEstado(false);
             }
         }
     }
 
+    public void mostrarEstadiasPorDNI(int dni){
+        for(Estadia estadia : getEstadias()){
+            if(estadia.visitante.getDni() == dni){
+                System.out.println(estadia);
+            }else{
+                System.out.println("No tiene estadias.");
+            }
+        }
+    }
+
     public void mostrarHabitaciones(){
-        for(Habitacion habitacion : this.habitaciones.getElementos()){
+        for(Habitacion habitacion : this.habitaciones){
             System.out.println(habitacion);
         }
     }
 
     public void mostrarHabitacionesDisp(){
-        for(Habitacion habitacion : this.habitaciones.getElementos()){
-            if(habitacion.isDisponible()){
+        for(Habitacion habitacion : getHabitaciones()){
+            if(habitacion.getEstado() == EstadoHabitacion.DISPONIBLE){
             System.out.println(habitacion);
         }
     }
+    }
+
+    public void agregarHabitacion(Habitacion habitacion){
+        getHabitaciones().add(habitacion);
     }
 
     public void mostrarHabitacionPart(){
@@ -121,7 +131,7 @@ public class Hotel {
 
 
     public Habitacion buscarNumeroHabitacion(int numero){
-        for(Habitacion habitacion : this.habitaciones.getElementos()){
+        for(Habitacion habitacion : getHabitaciones()){
             if(habitacion.getNumero() == numero){
                 return habitacion;
             }
@@ -131,7 +141,7 @@ public class Hotel {
 
 
     public Visitante buscarVisitante(int dni){
-        for(Visitante v : visitantes){
+        for(Visitante v : getVisitantes()){
             if(v.getDni() == dni){
                 return v;
             }
@@ -139,8 +149,18 @@ public class Hotel {
         return null;
     }
 
+    public Reserva buscarReservaPorID(int id){
+        for(Reserva r : getReservas()){
+            if(r.getID() == id){
+                return r;
+            }
+        }
+
+        return null;
+    }
+
     public Reserva buscarReserva(Reserva reserva){
-        for(Reserva r : reservas){
+        for(Reserva r : getReservas()){
             if(r.equals(reserva)){
                 return r;
             }
@@ -148,23 +168,23 @@ public class Hotel {
         return null;
     }
 
-
-
-
     public SetGenerico<Habitacion> getHabitaciones() {
         return habitaciones;
     }
 
-    public Set<Empleado> getEmpleados() {
+    public SetGenerico<Empleado> getEmpleados() {
         return empleados;
     }
 
-    public Set<Estadia> getEstadias() {
+    public SetGenerico<Estadia> getEstadias() {
         return estadias;
     }
 
-    public Set<Reserva> getReservas() {
+    public SetGenerico<Reserva> getReservas() {
         return reservas;
     }
 
+    public SetGenerico<Visitante> getVisitantes() {
+        return visitantes;
+    }
 }
