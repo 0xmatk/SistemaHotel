@@ -220,6 +220,7 @@ class Estadia extends Reserva implements Serializable {
          SUITE,
          FAMILIAR,
      }
+
      class CredencialesInvalidasExcepcion extends Exception{}
       class VisitanteNoEncontradoExcepcion extends Exception{}
 
