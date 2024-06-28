@@ -22,32 +22,21 @@ public class Main {
             SetGenerico<Visitante> visitantes = Datos.cargarVisitantes(ARCHIVO_VISITANTES);
 
 
-
-            System.out.println("Datos.Datos cargados correctamente:");
-            System.out.println("Empleados: " + empleados);
-            System.out.println("Habitaciones: " + habitaciones);
-
-
+            Empleado empleado = new Empleado();
 
             Hotel hotel = new Hotel(habitaciones, reservas, estadias, empleados, visitantes);
             Sistema sistema = new Sistema(hotel);
-            sistema.iniciarSesion();
-
-
-            System.out.println("Datos.Datos después de realizar cambios:");
-            System.out.println("Empleados: " + empleados);
-            System.out.println("Habitaciones: " + habitaciones);
+            Usuario u = sistema.iniciarSesion();
+            sistema.actividadUsuario(u);
 
 
 
-            System.out.println("Guardando datos actualizados en archivos JSON...");
             Datos.guardarHabitaciones(habitaciones, ARCHIVO_HABITACIONES);
             Datos.guardarEmpleados(empleados, ARCHIVO_EMPLEADOS);
             Datos.guardarEstadias(estadias, ARCHIVO_ESTADIAS);
             Datos.guardarReservas(reservas, ARCHIVO_RESERVAS);
             Datos.guardarVisitantes(visitantes, ARCHIVO_VISITANTES);
 
-            System.out.println("Datos.Datos guardados correctamente.");
 
         } catch (IOException e) {
             e.printStackTrace();

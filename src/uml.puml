@@ -134,6 +134,7 @@ interface AltaBajaModificacion{
 +darBaja(): void
 +modificar(): void
 }
+
 interface AutentificacionUsuario{
 +iniciarSesion(String nombreUsuario, String contrasena): boolean
 +cerrarSesion() : void

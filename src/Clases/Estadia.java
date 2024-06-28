@@ -40,4 +40,48 @@ public class Estadia extends Reserva implements Serializable {
         return costoTotal;
 
     }
+    ///===================================================================
+
+
+    public boolean isCheckIn() {
+        return checkIn;
+    }
+
+    public void setCheckIn(boolean checkIn) {
+        this.checkIn = checkIn;
+    }
+
+    public static int getContador() {
+        return contador;
+    }
+
+    public static void setContador(int contador) {
+        Estadia.contador = contador;
+    }
+
+    @Override
+    public int getID() {
+        return ID;
+    }
+
+
+
+    public int getCosto() {
+        return costo;
+    }
+
+    public void setCosto(int costo) {
+        this.costo = costo;
+    }
+
+    public boolean isCheckOut() {
+        return checkOut;
+    }
+
+    public void setCheckOut(boolean checkOut) {
+        this.checkOut = checkOut;
+    }
 }
+
+
+

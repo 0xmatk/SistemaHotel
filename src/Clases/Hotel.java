@@ -27,7 +27,7 @@ public class Hotel implements Serializable {
 
 
 
-    public void crearReserva(Reserva reserva) {
+    public void agregarReserva(Reserva reserva) {
         for(Reserva r : getReservas()) {
             if (reserva.getLlegada().equals(r.getLlegada()) && reserva.getSalida().equals(r.getSalida())) {
                 System.out.println("Error: La nueva reserva es igual a una reserva existente.");
@@ -143,7 +143,7 @@ public class Hotel implements Serializable {
 
 
     public Visitante buscarVisitante(int dni){
-        for(Visitante v : getVisitantes()){
+        for(Visitante v : this.visitantes.getElementos()){
             if(v.getDni() == dni){
                 return v;
             }
@@ -174,6 +174,16 @@ public class Hotel implements Serializable {
         for(Visitante v : this.visitantes){
             System.out.println(v);
         }
+    }
+
+    public void mostrarEmpleados(){
+        for(Empleado e : this.empleados){
+            System.out.println(e);
+        }
+    }
+
+    public void agregarEmpleado(Empleado empleado){
+        empleados.add(empleado);
     }
 
     public SetGenerico<Habitacion> getHabitaciones() {

@@ -9,11 +9,12 @@ import java.util.Set;
 
 public interface IAltaBajaModificacion {
 
-    public default void darAlta(Hotel hotel, Empleado empleado){
-        //hotel.agregarEmpleado(empleado);
+    public default void darAltaEmpleado(Hotel hotel, Empleado empleado){
+        hotel.agregarEmpleado(empleado);
     }
 
-    public default void darBaja(Hotel hotel, int nroLegajo){
+    public default void darBajaEmpleado(Hotel hotel, int nroLegajo){
+
         Empleado empleado = buscarEmpleado(hotel, nroLegajo);
 
         if(empleado != null){
@@ -21,7 +22,7 @@ public interface IAltaBajaModificacion {
         }
     }
 
-    public default void modificar(Hotel hotel, int nroLegajo){
+    public default void modificarEmpleado(Hotel hotel, int nroLegajo){
         Empleado empleado = buscarEmpleado(hotel, nroLegajo);
         Scanner teclado = new Scanner(System.in);
 
@@ -54,7 +55,7 @@ public interface IAltaBajaModificacion {
                     break;
                 case 3:
                     System.out.println("Información del Empleado:");
-                    empleado.toString();
+                    System.out.println(empleado);
                     break;
                 case 4:
                     System.out.println("Saliendo de la edición del empleado...");
@@ -75,13 +76,13 @@ public interface IAltaBajaModificacion {
         return null;
     }
 
-    public default Empleado crearEmpleado(Hotel hotel, String nombre, String apellido, int nroLegajo, String usuario, String clave){
+    public default void crearEmpleado(Hotel hotel, String nombre, String apellido, int nroLegajo, String usuario, String clave){
         Empleado e = buscarEmpleado(hotel, nroLegajo);
 
         if(e == null){
             if(nombre != null && apellido != null && nroLegajo < 0){
                 Empleado empleado = new Empleado(nombre, apellido, clave, usuario, nroLegajo);
-                darAlta(hotel, empleado);
+                darAltaEmpleado(hotel, empleado);
 
             }else{
                 System.out.println("Rellene todos los datos correctamente.");
@@ -90,8 +91,6 @@ public interface IAltaBajaModificacion {
         }else{
             System.out.println("El nro legajo ya existe.");
         }
-
-        return e;
     }
 
 

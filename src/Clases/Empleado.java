@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
-public class Empleado extends Usuario implements IAdministrarVisitante, IAdministrarEstadia{
+public class Empleado extends Usuario implements IAdministrarVisitante, IAdministrarEstadia, IAdministrarReserva {
     private int nroLegajo;
     private boolean estado;
 
@@ -64,10 +64,16 @@ public class Empleado extends Usuario implements IAdministrarVisitante, IAdminis
                     this.empSwitchHabitaciones(hotel);
                     break;
                 case 2:
-                    ///Dar check in
+                    System.out.println("Ingrese el id de la reserva del hotel");
+                    int nuevoid = teclado.nextInt();
+                    teclado.nextLine();
+                    darCheckIn(hotel,nuevoid);
                     break;
                 case 3:
-                    ///Dar Check out
+                    System.out.println("Ingrese el id de la reserva del hotel");
+                    nuevoid = teclado.nextInt();
+                    teclado.nextLine();
+                    darCheckOut(hotel,nuevoid);
                     break;
 
                 case 4:
@@ -107,7 +113,7 @@ public class Empleado extends Usuario implements IAdministrarVisitante, IAdminis
                 hotel.mostrarHabitacionesDisp();
                 break;
             case 2:
-              hotel.mostrarHabitacionPart();
+                hotel.mostrarHabitacionPart();
                 break;
             case 3:
                 hotel.mostrarHabitaciones();
@@ -126,11 +132,11 @@ public class Empleado extends Usuario implements IAdministrarVisitante, IAdminis
 
         System.out.println("1-Editar Estadias\n" +
                 "2- Crear Estadia\n" +
-                "3- Vizualizar Estadia" +
-                "4- Eliminar Estadia " +
-                "Presione ESC para salir....");
+                "3- Vizualizar Estadia\n" +
+                "4- Eliminar Estadia\n " +
+                "Presione ESC para salir....\n");
 
-        opcion = teclado.nextInt();
+        opcion = Integer.parseInt(teclado.nextLine().trim());
 
 
         switch (opcion) {
@@ -143,6 +149,7 @@ public class Empleado extends Usuario implements IAdministrarVisitante, IAdminis
             case 3:
                 this.editSwitchVisitantes(hotel);
                 break;
+
             default:
                 break;
 
@@ -158,19 +165,19 @@ public class Empleado extends Usuario implements IAdministrarVisitante, IAdminis
         System.out.println(
                 "1- Crear Reserva\n" +
                 "2-Editar Reservas\n" +
-                        "3- Visualizar Reserva" +
-                "4- Eliminar Reserva " +
-                        "Presione ESC para salir....");
+                        "3- Visualizar Reserva\n" +
+                "4- Eliminar Reserva\n " +
+                        "Presione ESC para salir....\n");
 
          opcion = teclado.nextInt();
 
 
         switch (opcion) {
             case 1:
-                ///Metodo de llamado a lista de habitaciones y luego poder Eliminar
-                break;
+                crearReserva(hotel);
+          break;
             case 2:
-                /// Metodo de llamado a lista de empleados y luego poder Eliminar
+                this.editSwitchReservas(hotel);
                 break;
             case 3:
                 /// Metodo de llamado a lista de Estadias y luego poder Eliminar
@@ -197,7 +204,7 @@ public class Empleado extends Usuario implements IAdministrarVisitante, IAdminis
             );
 
 
-                opcion = teclado.nextInt();
+                opcion = Integer.parseInt(teclado.nextLine().trim());
                 System.out.println(opcion);
 
                 switch (opcion) {
@@ -247,98 +254,117 @@ public class Empleado extends Usuario implements IAdministrarVisitante, IAdminis
 
 
 
-    protected void   editSwitchEstadias(Hotel hotel){
+    protected void  editSwitchEstadias(Hotel hotel){
         int opcion;
         Scanner teclado = new Scanner(System.in);
-        ///Pedir El empleado por nroLegajo
-        /// Mostrar mostrar Empleado
 
-        do{
+        System.out.println("Ingrese el id de la estadia que quiere editar: ");
 
-        System.out.println("1- Editar el visitante de la  Estadia \n" +
-                "2- Editar la llegada a la  Estadia\n" +
-                "3-Editar la salida de la  Estadia\n" +
-                "4-Editar estado de la  Estadia\n" +
-                "5- Editar el ID de la Estadia\n" +
-                "6- Editar estado del Check in de la estadia\n" +
-                "7- Editar estado del check out de la Estadia\n" +
-                "8- Editar el coste de la Estadia\n" +
-                "Presione ESC para salir....\n");
-
-        opcion = teclado.nextInt();
+        int id = teclado.nextInt();
+        teclado.nextLine();
+        Estadia e = hotel.encontrarEstadia(id);
+        if(e == null){
+            System.out.println("Estadia no encontrada");
+        }else {
 
 
-        switch (opcion) {
-            case 1:
-                ///Solicitar y asignar
-                break;
-            case 2:
-                ///Solicitar  y asignar
-                break;
-            case 3:
-                ///Solicitar  y asignar
-                break;
-            case 4:
-                ///Solicitar  y asignar
-                break;
-            case 5:
-                /// Solicitar y asignar
-                break;
-            case 6:
-                /// Solicitar y asignar
-                break;
-            case 7:
-                /// Solicitar y asignar
-                break;
-            case 8:
-                /// Solicitar y asignar
-                break;
-            default:
-                break;
+            do {
+
+                System.out.println("1- Editar el visitante de la  Estadia \n" +
+                        "2- Editar la llegada a la  Estadia\n" +
+                        "3-Editar la salida de la  Estadia\n" +
+                        "4-Editar estado de la  Estadia\n" +
+                        "5- Editar el ID de la Estadia\n" +
+                        "6- Editar estado del Check in de la estadia\n" +
+                        "7- Editar estado del check out de la Estadia\n" +
+                        "8- Editar el coste de la Estadia\n" +
+                        "Presione ESC para salir....\n");
+
+                opcion = teclado.nextInt();
+
+
+                switch (opcion) {
+                    case 1:
+                        ///Solicitar y asignar
+                        break;
+                    case 2:
+                        ///Solicitar  y asignar
+                        break;
+                    case 3:
+                        ///Solicitar  y asignar
+                        break;
+                    case 4:
+                        ///Solicitar  y asignar
+                        break;
+                    case 5:
+                        /// Solicitar y asignar
+                        break;
+                    case 6:
+                        /// Solicitar y asignar
+                        break;
+                    case 7:
+                        /// Solicitar y asignar
+                        break;
+                    case 8:
+                        /// Solicitar y asignar
+                        break;
+                    default:
+                        break;
+                }
+            } while (opcion != 27);
         }
-        }while(opcion!=27);
-
     }
 
-    protected void   editSwitchReservas(Hotel hotel){
+    protected void  editSwitchReservas(Hotel hotel){
         int opcion;
         Scanner teclado = new Scanner(System.in);
-        ///Pedir El empleado por nroLegajo
-        /// Mostrar mostrar Empleado
 
-        do{
+        System.out.println("Ingrese el id reserva que quiere editar: ");
+        int id = teclado.nextInt();
+        teclado.nextLine();
+        Reserva r = hotel.buscarReservaPorID(id);
 
-        System.out.println("1- Editar el visitante de la  Reserva \n" +
-                "2- Editar la llegada a la  Reserva\n" +
-                "3-Editar la salida de la  Reserva\n" +
-                "4-Editar estado de la  Reserva\n" +
-                "5- Editar el ID de la Reserva" +
-                "Presione ESC para salir....");
-        opcion = teclado.nextInt();
+        if (r == null) {
+            System.out.println("ID de reserva no encontrado");
+        }else {
+
+            do {
+
+                System.out.println("1- Editar el visitante de la  Reserva \n" +
+                        "2- Editar la llegada a la  Reserva\n" +
+                        "3-Editar la salida de la  Reserva\n" +
+                        "4-Editar estado de la  Reserva\n" +
+                        "5- Editar el ID de la Reserva" +
+                        "Presione ESC para salir....");
+                opcion = teclado.nextInt();
 
 
-        switch (opcion) {
-            case 1:
-                ///Solicitar y asignar
-                break;
-            case 2:
-                ///Solicitar  y asignar
-                break;
-            case 3:
-                ///Solicitar  y asignar
-                break;
-            case 4:
-                ///Solicitar  y asignar
-                break;
-            case 5:
-                /// Solicitar y asignar
-                break;
-            default:
-                break;
+                switch (opcion) {
+                    case 1:
+                        System.out.println("Ingrese el dni del visitante a asignar: ");
+                        int dni = teclado.nextInt();
+                        teclado.nextLine();
+                        Visitante vist = hotel.buscarVisitante(id);
+                        r.setVisitante(vist);
+                        break;
+                    case 2:
+                        r.setLlegada(pedirFecha("llegada", teclado));
+                        break;
+                    case 3:
+                        r.setSalida(pedirFecha("salida", teclado));
+                        break;
+                    case 4:
+                        ///Solicitar  y asignar
+                        break;
+                    case 5:
+                        /// Solicitar y asignar
+                        break;
+                    default:
+                        break;
 
+                }
+            } while (opcion != 27);
         }
-        }while(opcion!=27);
-
     }
 
     protected void  editSwitchVisitantes(Hotel hotel){ Scanner teclado = new Scanner(System.in);
@@ -386,141 +412,69 @@ public class Empleado extends Usuario implements IAdministrarVisitante, IAdminis
         }while(opcion!=27);
 
     }
+    private  Date pedirFecha(String tipoFecha, Scanner scanner) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
+        while (true) {
+            try {
+                System.out.print("Ingrese la fecha de " + tipoFecha + " (yyyy-MM-dd): ");
+                String fechaString = scanner.nextLine();
+                Date fecha = dateFormat.parse(fechaString);
+                return fecha;
+            } catch (Exception e) {
+                System.out.println("Formato de fecha incorrecto. Intente nuevamente.");
+            }
+        }
+
+    }
     ///=======================================================================================================0
 
 
-    public Reserva crearReserva(Hotel hotel, Visitante visitante, Habitacion habitacion, Date llegada, Date salida){
-        Visitante v = hotel.buscarVisitante(visitante.getDni());
-        if(visitante == null){
-            //darAlta(); interfaz administrarVisitante
-
-        }
-
-
-        return null;
-    }
-
 
     @Override
-    public void crearEstadia(Hotel hotel) {
+    public void crearReserva(Hotel hotel){
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Creación de nueva estadía:");
-
-        try {
-            System.out.print("Ingrese el DNI del visitante: ");
-            int dni = scanner.nextInt();
-            scanner.nextLine();
-
-            Visitante visitante = hotel.buscarVisitante(dni);
-            if (visitante == null) {
-                System.out.println("El visitante con DNI " + dni + " no está registrado.");;
-            }
-
-            hotel.mostrarHabitacionesDisp();
-            System.out.print("Ingrese el número de habitación: ");
-            int numeroHabitacion = scanner.nextInt();
-            scanner.nextLine();
-
-            Habitacion habitacion = hotel.buscarNumeroHabitacion(numeroHabitacion);
-            if (habitacion == null) {
-                System.out.println("La habitación número " + numeroHabitacion + " no está disponible.");
-
-            }
-
-            Date fechaLlegada = ingresarFecha("Fecha de llegada (yyyy-MM-dd): ", scanner);
-            Date fechaSalida = ingresarFecha("Fecha de salida (yyyy-MM-dd): ", scanner);
-            if (fechaLlegada == null || fechaSalida == null || fechaLlegada.after(fechaSalida)) {
-                System.out.println("Las fechas ingresadas no son válidas.");
-
-            }
-
-            Estadia estadia = new Estadia(visitante, habitacion, fechaLlegada, fechaSalida);
-            hotel.getEstadias().add(estadia);
-
-            System.out.println("Estadía creada y registrada correctamente.");
-
-        } catch (Exception e) {
-            System.out.println("Error al ingresar datos para la estadía: " + e.getMessage());
-        } finally {
-            scanner.close();
-        }
-    }
-
-    private Date ingresarFecha(String mensaje, Scanner scanner) {
-        System.out.print(mensaje);
-        String fechaStr = scanner.nextLine();
-
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            sdf.setLenient(false); // Para que sea estricto en el formato
-            return sdf.parse(fechaStr);
-        } catch (ParseException e) {
-            System.out.println("Formato de fecha incorrecto. Ingrese la fecha nuevamente.");
-
-        }
-        return null;
-    }
-
-
-
-    @Override
-    public void editarEstadia(Hotel hotel, int id) {
-        Scanner scanner = new Scanner(System.in);
-
-        hotel.mostrarEstadias();
-
-        System.out.print("Ingrese el ID de la estadía que desea editar: ");
-        int idEstadia = scanner.nextInt();
+        System.out.println("Ingrese el dni del visitante");
+        int dni = scanner.nextInt();
         scanner.nextLine();
+        Visitante nuevo= hotel.buscarVisitante(dni);
 
+        Date llegada = pedirFecha("llegada", scanner);
+        Date salida = pedirFecha("salida", scanner);
+        Reserva Aux= new Reserva(nuevo,null,llegada,salida);
 
-        Estadia estadia = hotel.encontrarEstadia(idEstadia);
-        if (estadia == null) {
-            System.out.println("No se encontró ninguna estadía con el ID ingresado.");
-           return;
+        for(Habitacion aux: hotel.getHabitaciones()){
+            if(aux.getFechaLejana().before(Aux.llegada)){
+                hotel.agregarReserva(Aux);
+                aux.setFechaLejana(Aux.salida);
+            }else{
+                if(aux.getFechaProxima().after(Aux.salida)){
+                    hotel.agregarReserva(Aux);
+                    aux.setFechaProxima(Aux.llegada);
+                }
+            }
+
         }
 
-
-        System.out.println("Detalles actuales de la estadía:");
-        System.out.println(estadia);
-
-
-        System.out.println("Ingrese las nuevas fechas de llegada y salida (yyyy-MM-dd). Deje en blanco para no modificar.");
-
-        Date nuevaFechaLlegada = ingresarFecha("Nueva fecha de llegada: ", scanner);
-        Date nuevaFechaSalida = ingresarFecha("Nueva fecha de salida: ", scanner);
-
-
-        System.out.println("Desea cambiar la habitación asignada? (S/N)");
-        String opcionCambiarHabitacion = scanner.nextLine().trim();
-        if (opcionCambiarHabitacion.equalsIgnoreCase("S")) {
-            System.out.println("Ingrese el numero de habitacion a cambiar: ");
-            hotel.mostrarHabitaciones();
-            scanner.nextInt();
-            scanner.nextLine();
-        }
-
-        if (nuevaFechaLlegada != null) {
-            estadia.setLlegada(nuevaFechaLlegada);
-        }
-        if (nuevaFechaSalida != null) {
-            estadia.setSalida(nuevaFechaSalida);
-        }
-
-
-        System.out.println("Estadía editada correctamente.");
+        scanner.close();
     }
 
     @Override
-    public void listarEstadias(Hotel hotel) {
-        hotel.mostrarEstadias();
+    public void editarReserva(int id) {
+
     }
 
     @Override
-    public void buscarEstadia(Hotel hotel, int id) {
-        Estadia e = hotel.encontrarEstadia(id);
+    public void listarReservas() {
+
     }
+
+    @Override
+    public void buscarReserva(int id) {
+
+    }
+
+
 }
 
 

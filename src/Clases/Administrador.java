@@ -1,15 +1,13 @@
 package Clases;
 
-import Interfaces.IAdministrarEstadia;
-import Interfaces.IAdministrarHabitacion;
-import Interfaces.IAdministrarReserva;
-import Interfaces.IAltaBajaModificacion;
+import Interfaces.*;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
 
-public class Administrador extends Usuario implements IAdministrarHabitacion {
+public class Administrador extends Usuario implements IAdministrarHabitacion, IAdministrarVisitante, IAltaBajaModificacion, IAdministrarEstadia, IAdministrarReserva {
 
 
     public Administrador() {
@@ -82,19 +80,18 @@ public class Administrador extends Usuario implements IAdministrarHabitacion {
                hotel.mostrarHabitaciones();
                 break;
             case 2:
-                /// Metodo de llamado a lista de empleados y mostrar
+                mostrarHabitaciones(hotel);
                 break;
             case 3:
-                /// Metodo de llamado a lista de Estadias y mostrar
+                hotel.mostrarEstadias();
                 break;
             case 4:
-                /// Metodo de llamado a lista de Reservas y mostrar
+                hotel.mostrarReservas();
                 break;
             case 5:
-                /// Metodo de llamado a lista de Visitantes y mostrar
+                mostrarVisitantes(hotel);
                 break;
             default:
-                ///nada
                 break;
         }
         }while (opcion != 27);
@@ -145,6 +142,7 @@ public class Administrador extends Usuario implements IAdministrarHabitacion {
         int opcion;
         Scanner teclado = new Scanner(System.in);
 
+
         do{
         System.out.println("1- Eliminar Habitaciones del hotel \n" +
                 "2- Eliminar empleados\n" +
@@ -157,22 +155,33 @@ public class Administrador extends Usuario implements IAdministrarHabitacion {
 
         switch (opcion) {
             case 1:
-                ///Metodo de llamado a lista de habitaciones y luego poder Eliminar
+                eliminarHabitacion(hotel);
                 break;
             case 2:
-                /// Metodo de llamado a lista de empleados y luego poder Eliminar
+                Scanner nroLegajo = new Scanner(System.in);
+                System.out.println("Ingrese el nro de legajo del empleado: ");
+                int nro = Integer.parseInt(nroLegajo.nextLine().trim());
+                darBajaEmpleado(hotel, nro);
                 break;
             case 3:
-                /// Metodo de llamado a lista de Estadias y luego poder Eliminar
+                Scanner id = new Scanner(System.in);
+                System.out.println("Ingrese el id de la Estadia a borrar: ");
+                int idEstadia = Integer.parseInt(id.nextLine().trim());
+                hotel.eliminarEstadia(idEstadia);
                 break;
             case 4:
-                /// Metodo de llamado a lista de Reservas y luego poder Eliminar
+               Scanner id2 = new Scanner(System.in);
+               System.out.println("Ingrese el id de la Reserva a borrar: ");
+               int idReserva = Integer.parseInt(id2.nextLine().trim());
+               hotel.eliminarReserva(idReserva);
                 break;
             case 5:
-                /// Metodo de llamado a lista de Visitantes y luego poder Eliminar
+                Scanner dni = new Scanner(System.in);
+                System.out.println("Ingrese el id de la Visitante a borrar: ");
+                int idVisitante = Integer.parseInt(dni.nextLine().trim());
+                darBaja(hotel, idVisitante);
                 break;
             default:
-                ///nada
                 break;
         }
         }while (opcion != 27);
@@ -198,16 +207,34 @@ public class Administrador extends Usuario implements IAdministrarHabitacion {
 
                 break;
             case 2:
-                /// Metodo de llamado a lista de empleados y luego poder Crear
+                Scanner scanner = new Scanner(System.in);
+                System.out.println("===== Crear Empleado =====");
+
+                System.out.print("Ingrese el nombre: ");
+                String nombre = scanner.nextLine().trim();
+
+                System.out.print("Ingrese el apellido: ");
+                String apellido = scanner.nextLine().trim();
+
+                System.out.print("Ingrese el nro de legajo: ");
+                int nroLegajo = Integer.parseInt(scanner.nextLine().trim());
+
+                System.out.print("Ingrese el usuario: ");
+                String usuario = scanner.nextLine().trim();
+
+                System.out.print("Ingrese la clave: ");
+                String clave = scanner.nextLine().trim();
+
+                crearEmpleado(hotel, nombre, apellido, nroLegajo, usuario, clave);
                 break;
             case 3:
-                /// Metodo de llamado a lista de Estadias y luego poder Crear
+                crearEstadia(hotel);
                 break;
             case 4:
-                /// Metodo de llamado a lista de Reservas y luego poder Crear
+                crearReserva(hotel);
                 break;
             case 5:
-                /// Metodo de llamado a lista de Visitantes y luego poder Crear
+                crearVisitante(hotel);
                 break;
             default:
                 ///nada
@@ -221,8 +248,13 @@ public class Administrador extends Usuario implements IAdministrarHabitacion {
     protected void editSwitchHabitaciones(Hotel hotel) {
         int opcion;
         Scanner teclado = new Scanner(System.in);
-        ///Pedir numero de habitacion y asignarlo
-        /// Mostrar Habitacion
+        System.out.println("Ingrese el numero de habitacion a editar: ");
+        int nro = Integer.parseInt(teclado.nextLine().trim());
+        Habitacion h = buscarNumeroHabitacion(hotel, nro);
+
+        if(h == null){
+            System.out.println("No se encuentra la habitacion.");
+        }
 
         do{
 
@@ -237,7 +269,7 @@ public class Administrador extends Usuario implements IAdministrarHabitacion {
 
         switch (opcion) {
             case 1:
-                ///Solicitar nuevo tipo y asignar
+                editarHabitacion(hotel,nro);
                 break;
             case 2:
                 ///Solicitar nuevo num y asignar
@@ -259,8 +291,12 @@ public class Administrador extends Usuario implements IAdministrarHabitacion {
     protected void   editSwitchEmpleados(Hotel hotel){
         int opcion;
         Scanner teclado = new Scanner(System.in);
-     ///Pedir El empleado por nroLegajo
-     /// Mostrar mostrar Empleado
+
+        System.out.println("Ingrese el nro de legajo del Empleado: \n");
+        int nro = Integer.parseInt(teclado.nextLine().trim());
+        Empleado e = buscarEmpleado(hotel, nro);
+        System.out.println("Empleado encontrado: \n");
+        System.out.println(e);
 
         do{
 
@@ -275,19 +311,28 @@ public class Administrador extends Usuario implements IAdministrarHabitacion {
 
      switch (opcion) {
          case 1:
-             ///Solicitar y asignar
+             Scanner t = new Scanner(System.in);
+             System.out.println("Ingrese el nuevo nombre: ");
+             String nombreModificar = t.nextLine();
+             e.setNombre(nombreModificar);
+
              break;
          case 2:
-             ///Solicitar  y asignar
+             Scanner t1 = new Scanner(System.in);
+             System.out.println("Ingrese el nuevo apellido: ");
+             String apellidoModificar = t1.nextLine();
+             e.setApellido(apellidoModificar);
              break;
          case 3:
-             ///Solicitar  y asignar
-             break;
+            Scanner t2 = new Scanner(System.in);
+            System.out.println("Ingrese el nuevo legajo: ");
+            int legajoModificar = Integer.parseInt(t2.nextLine().trim());
+            e.setNroLegajo(legajoModificar);
+            break;
          case 4:
-             ///Solicitar  y
+             darBajaEmpleado(hotel, nro);
              break;
          default:
-             ///nada
              break;
 
      }
@@ -295,22 +340,20 @@ public class Administrador extends Usuario implements IAdministrarHabitacion {
 
  }
 
-    protected void   editSwitchEstadias(Hotel hotel){
+    protected void  editSwitchEstadias(Hotel hotel){
         int opcion;
         Scanner teclado = new Scanner(System.in);
-     ///Pedir El empleado por nroLegajo
-     /// Mostrar mostrar Empleado
+
 
         do{
 
      System.out.println("1- Editar el visitante de la  Estadia \n" +
              "2- Editar la llegada a la  Estadia\n" +
-             "3-Editar la salida de la  Estadia\n" +
-             "4-Editar estado de la  Estadia\n" +
-             "5- Editar el ID de la Estadia\n" +
-             "6- Editar estado del Check in de la estadia\n" +
-             "7- Editar estado del check out de la Estadia\n" +
-             "8- Editar el coste de la Estadia \n \n " +
+             "3- Editar la salida de la  Estadia\n" +
+             "4- Editar estado de la  Estadia\n" +
+             "5- Editar estado del Check in de la estadia\n" +
+             "6- Editar estado del check out de la Estadia\n" +
+             "7- Editar el coste de la Estadia \n \n " +
              "Presione ESC para salir....");
 
       opcion = teclado.nextInt();
@@ -349,7 +392,7 @@ public class Administrador extends Usuario implements IAdministrarHabitacion {
 
  }
 
-    protected void   editSwitchReservas(Hotel hotel){
+    protected void  editSwitchReservas(Hotel hotel){
         int opcion;
         Scanner teclado = new Scanner(System.in);
      ///Pedir El empleado por nroLegajo
@@ -394,17 +437,16 @@ public class Administrador extends Usuario implements IAdministrarHabitacion {
     protected void  editSwitchVisitantes(Hotel hotel){ Scanner teclado = new Scanner(System.in);
         int opcion;
 
-        ///Pedir El empleado por nroLegajo
-      /// Mostrar mostrar Empleado
+        System.out.println("Ingrese el dni del estadia: ");
+        int dni = Integer.parseInt(teclado.nextLine().trim());
+        Visitante v = hotel.buscarVisitante(dni);
+
+
         do{
 
-      System.out.println("1- Editar el DNI del  visitante  \n" +
-              "2- Editar el Origen del visitante \n" +
-              "3-Editar el domicilio de origen del visitante \n" +
-              "4-Editar estado del  visitante \n" +
-              "5- Editar el Gasto del visitante\n" +
-              "6- Editar el nro de Habitacion del visitante\n" +
-              "7- Editar la Presencia del visitante\n \n" +
+      System.out.println("1- Cambios de habitacion / Fechas " +
+              "2- Editar el Gasto del visitante\n" +
+              "3- Editar el nro de Habitacion del visitante\n" +
               "Presione ESC para salir....");
 
        opcion = teclado.nextInt();
@@ -412,36 +454,103 @@ public class Administrador extends Usuario implements IAdministrarHabitacion {
 
       switch (opcion) {
           case 1:
-              ///Solicitar y asignar
+              editarEstadia(hotel);
               break;
           case 2:
-              ///Solicitar  y asignar
+              Scanner t = new Scanner(System.in);
+              System.out.println("Ingrese el gasto: ");
+              float gasto = Integer.parseInt(t.nextLine().trim());
+              v.setGastos(gasto);
+
               break;
           case 3:
-              ///Solicitar  y asignar
-              break;
-          case 4:
-              ///Solicitar  y asignar
-              break;
-          case 5:
-              /// Solicitar y asignar
+              Scanner t1 = new Scanner(System.in);
+              System.out.println("Ingrese el nro de habitacion: ");
+              int nro = Integer.parseInt(t1.nextLine().trim());
+             Habitacion h =  hotel.buscarNumeroHabitacion(nro);
+             if(h == null){
+                 System.out.println("Nro no encontrado");
+             }else{
+                 v.setNroHabitacion(nro);
+             }
               break;
           default:
-              ///nada
+
               break;
 
       }
         }while (opcion != 27);
 
   }
+
+
+    private  Date pedirFecha(String tipoFecha, Scanner scanner) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        while (true) {
+            try {
+                System.out.print("Ingrese la fecha de " + tipoFecha + " (yyyy-MM-dd): ");
+                String fechaString = scanner.nextLine();
+                Date fecha = dateFormat.parse(fechaString);
+                return fecha;
+            } catch (Exception e) {
+                System.out.println("Formato de fecha incorrecto. Intente nuevamente.");
+            }
+        }
+
+    }
+
+
+    @Override
+    public void crearReserva(Hotel hotel){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Ingrese el dni del visitante");
+        int dni = scanner.nextInt();
+        scanner.nextLine();
+        Visitante nuevo= hotel.buscarVisitante(dni);
+
+        Date llegada = pedirFecha("llegada", scanner);
+        Date salida = pedirFecha("salida", scanner);
+        Reserva Aux= new Reserva(nuevo,null,llegada,salida);
+
+        for(Habitacion aux: hotel.getHabitaciones()){
+            if(aux.getFechaLejana().before(Aux.llegada)){
+                hotel.agregarReserva(Aux);
+                aux.setFechaLejana(Aux.salida);
+            }else{
+                if(aux.getFechaProxima().after(Aux.salida)){
+                    hotel.agregarReserva(Aux);
+                    aux.setFechaProxima(Aux.llegada);
+                }
+            }
+
+        }
+
+        scanner.close();
+    }
+
+    @Override
+    public void editarReserva(int id) {
+
+    }
+
+    @Override
+    public void listarReservas() {
+
+    }
+
+    @Override
+    public void buscarReserva(int id) {
+
+    }
+
+
+
 }
 
 
 
-///===================================================================================================================
 
 
 
-
-///===================================================================================================================
 

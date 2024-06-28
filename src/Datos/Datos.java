@@ -89,11 +89,11 @@ public class Datos {
             List<ObjectNode> usuariosResumidos = new ArrayList<>();
 
             // Leer y procesar visitantes.json
-            List<ObjectNode> visitantesResumidos = extraerUsuariosClaveTipo(visitantesJsonFile, "Visitante");
+            List<ObjectNode> visitantesResumidos = extraerUsuariosClaveTipo(visitantesJsonFile);
             usuariosResumidos.addAll(visitantesResumidos);
 
             // Leer y procesar empleados.json
-            List<ObjectNode> empleadosResumidos = extraerUsuariosClaveTipo(empleadosJsonFile, "Empleado");
+            List<ObjectNode> empleadosResumidos = extraerUsuariosClaveTipo(empleadosJsonFile);
             usuariosResumidos.addAll(empleadosResumidos);
 
             // Escribir a nuevoJsonFile
@@ -105,7 +105,7 @@ public class Datos {
         }
     }
 
-    public List<ObjectNode> extraerUsuariosClaveTipo(String archivoJson, String tipoUsuario) throws IOException {
+    public List<ObjectNode> extraerUsuariosClaveTipo(String archivoJson) throws IOException {
         byte[] contenidoBytes = Files.readAllBytes(Paths.get(archivoJson));
         JsonNode rootNode = objectMapper.readTree(contenidoBytes);
 
@@ -113,11 +113,12 @@ public class Datos {
         for (JsonNode usuarioNode : rootNode) {
             String usuario = usuarioNode.path("usuario").asText();
             String clave = usuarioNode.path("clave").asText();
+            String tipo = usuarioNode.path("tipo").asText();
 
             ObjectNode usuarioResumido = objectMapper.createObjectNode();
             usuarioResumido.put("usuario", usuario);
             usuarioResumido.put("clave", clave);
-            usuarioResumido.put("tipo", tipoUsuario);
+            usuarioResumido.put("tipo", tipo);
 
             usuariosResumidos.add(usuarioResumido);
         }

@@ -3,6 +3,7 @@ package Interfaces;
 import Clases.Habitacion;
 import Clases.Hotel;
 import Enum.EstadoHabitacion;
+import Enum.TipoHabitacion;
 
 import java.util.Scanner;
 
@@ -36,8 +37,24 @@ public interface IAdministrarHabitacion {
                 switch (opcion) {
                     case 1:
                         System.out.print("Introduce el tipo de habitación: ");
-                        String tipo =  teclado.nextLine();
-                        habitacion.setTipo(tipo);
+                        int tipoSeleccionado =  teclado.nextInt();
+                        switch (opcion) {
+                            case 1:
+                                habitacion.setTipo(TipoHabitacion.ESTANDAR);
+                                break;
+                            case 2:
+                                habitacion.setTipo(TipoHabitacion.SUITE);
+                                break;
+                            case 3:
+                                habitacion.setTipo(TipoHabitacion.FAMILIAR);
+                                break;
+                            case 4:
+                                System.out.println("Saliendo del programa...");
+                                break;
+                            default:
+                                System.out.println("Opción no válida. Inténtelo de nuevo.");
+                                break;
+                        }
                         break;
                     case 2:
                         System.out.print("Introduce el coste de la habitación: ");
@@ -132,9 +149,10 @@ public interface IAdministrarHabitacion {
                     nuevaHabitacion.setNumero(numero);
                     break;
                 case 2:
-                    System.out.print("Introduce el tipo de habitación: ");
-                    String tipo = teclado.nextLine();
-                    nuevaHabitacion.setTipo(tipo);
+                     mostrarOpciones();
+                     int opcionTipo = teclado.nextInt();
+
+
                     break;
                 case 3:
                     System.out.print("Introduce el coste de la habitación: ");
@@ -188,4 +206,14 @@ public interface IAdministrarHabitacion {
 
 
     }
+
+    public default void mostrarOpciones() {
+        System.out.println("Seleccione el tipo de habitación:");
+        System.out.println("1. ESTANDAR");
+        System.out.println("2. SUITE");
+        System.out.println("3. FAMILIAR");
+        System.out.println("4. Salir");
+        System.out.print("Ingrese su opción: ");
+    }
+
 }

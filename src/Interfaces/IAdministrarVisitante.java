@@ -82,4 +82,10 @@ public interface IAdministrarVisitante {
 
         return null;
     }
+
+    public default void mostrarVisitantes(Hotel hotel){
+        for(Visitante v : hotel.getVisitantes()){
+            System.out.println(v);
+        }
+    }
 }

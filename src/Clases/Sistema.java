@@ -31,12 +31,6 @@ public class Sistema  {
 ///=====================================================================================================================
 ///<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<SWITCHS/ TAREAS A REALIZAR>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-
-
-
-
-
-
     public void actividadUsuario(Usuario usuario){
         if(usuario instanceof Administrador){
             Administrador adm= (Administrador) usuario;
@@ -54,15 +48,15 @@ public class Sistema  {
         }
     }
 
-  public void iniciarSesion() {
-        int flag = 0;
+    public Usuario iniciarSesion() {
+        boolean encontrado = false;
         Usuario aux = null;
 
         System.out.println("===========================================================================================================");
         System.out.println("====================================Bienvenido a nuestro sistema Hotelero================================");
         System.out.println("===========================================================================================================");
 
-        while (flag == 0) {
+        while (!encontrado) {
             System.out.print("Ingrese su usuario: ");
             String usuario = this.teclado.next();
             System.out.print("Ingrese su contraseña: ");
@@ -74,38 +68,46 @@ public class Sistema  {
                 try {
                     Datos datos = new Datos();
                     // Cargar usuarios resumidos desde el archivo generado
-                    List<ObjectNode> usuariosResumidos = datos.extraerUsuariosClaveTipo("usuarios.json", "Usuario");
+                    List<ObjectNode> usuariosResumidos = datos.extraerUsuariosClaveTipo("usuarios.json");
 
                     // Comparar usuario y clave con los usuarios cargados
-                    boolean encontrado = false;
                     for (ObjectNode usuarioResumido : usuariosResumidos) {
                         String usuarioRes = usuarioResumido.get("usuario").asText();
                         String claveRes = usuarioResumido.get("clave").asText();
-
+                        String tipoUsuario = usuarioResumido.get("tipo").asText();
 
                         if (usuario.equals(usuarioRes) && clave.equals(claveRes)) {
-                            encontrado = true;
-                            String tipoUsuario = usuarioResumido.get("tipo").asText();
+                            if (tipoUsuario.equals("Empleado")) {
+                                for (Empleado e : hotel.getEmpleados().getElementos()) {
+                                    if (e.usuario.equals(usuarioRes)) {
+                                        aux = e;
+                                        encontrado = true;
+                                        break;
+                                    }
+                                }
+                            } else {
+                                for (Visitante v : hotel.getVisitantes().getElementos()) {
+                                    if (v.usuario.equals(usuarioRes)) {
+                                        aux = v;
+                                        encontrado = true;
+                                        break;
+                                    }
+                                }
+                            }
                             System.out.println("Inicio de sesión exitoso para tipo: " + tipoUsuario);
-                            break;
+                            if (encontrado) break;
                         }
                     }
-
                     if (!encontrado) {
                         System.out.println("Usuario o contraseña incorrectos. Inténtelo nuevamente.");
-                    } else {
-                        flag = 1;
                     }
-
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }
+        return aux;
     }
-
-///=====================================================================================================================
-
 
 
 

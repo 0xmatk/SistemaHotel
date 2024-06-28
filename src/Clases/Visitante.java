@@ -5,11 +5,13 @@ import Interfaces.IAdministrarReserva;
 import Interfaces.IAutentificador;
 
 import java.io.Serializable;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
 
-public class Visitante extends Usuario implements IAdministrarEstadia {
+public class Visitante extends Usuario implements IAdministrarReserva {
     private int dni;
     private String origen;
     private String domicilioOrigen;
@@ -87,16 +89,19 @@ public class Visitante extends Usuario implements IAdministrarEstadia {
 
 
     public void visitanteSwitch(Hotel hotel) {
-        Scanner teclado;
-        teclado = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
+        int opcion;
+
+        do {
 
 
         System.out.println("1- Visualizar informacion del visitante, sus reservas o su estadia \n" +
                 "2- Editar de sus reservas o informacion personal\n" +
-                "3-Eliminar sus reservas o informacion personal\n" +
-                "4-Crear una reserva o un usuario\n");
+                "3-Eliminar sus reservas \n" +
+                "4-Crear una reserva \n");
 
-        int opcion = teclado.nextInt();
+            opcion = scanner.nextInt();
+            scanner.nextLine();
 
 
         switch (opcion) {
@@ -109,182 +114,257 @@ public class Visitante extends Usuario implements IAdministrarEstadia {
                 break;
 
             case 3:
-                this.visitanteSwitchEliminar(hotel);
+                System.out.print("Ingrese el id de su reserva: ");
+                int idreserv = scanner.nextInt();
+                for(Reserva aux : hotel.getReservas()){
+                    if(aux.getID() == idreserv ){
+                        aux.setEstado(false);
+                    }
+                }
                 break;
             case 4:
-                this.visitanteSwitchCrear(hotel);
+                crearReserva(hotel);
 
-
+            case 0:
+                System.out.println("Saliendo del programa.");
+                break;
+            default:
+                System.out.println("Opción no válida.");
         }
+
+        } while (opcion != 0);
+
+        scanner.close();
     }
 
 
     protected void visitanteSwitchVisualizar(Hotel hotel) {
-        Scanner teclado = new Scanner(System.in);
-        System.out.println(
+        Scanner scanner = new Scanner(System.in);
+        int opcion;
+
+        do {
+
+            System.out.println(
                 "1- Visualizar su informacion \n" +
                 "2-visualizar su Estadias\n" +
                 "3-Visualizar sus  Reservas\n" );
 
-        int opcion = teclado.nextInt();
+        opcion = scanner.nextInt();
+        scanner.nextLine();
 
 
         switch (opcion) {
             case 1:
-                ///Metodo de llamado a lista de habitaciones y mostrar
+                this.visualizarInfoVisit();
                 break;
             case 2:
-                /// Metodo de llamado a lista de empleados y mostrar
+                this.visualizarEstadias(hotel);
                 break;
             case 3:
-                /// Metodo de llamado a lista de Estadias y mostrar
+                this.visualizarReservas(hotel);
                 break;
-
+            case 0:
+                System.out.println("Saliendo del programa.");
+                break;
+            default:
+                System.out.println("Opción no válida.");
         }
+
+    } while (opcion != 0);
+
+        scanner.close();
     }
 
 
     protected void visitanteSwitchEditar(Hotel hotel) {
+        Scanner scanner = new Scanner(System.in);
+        int opcion;
 
-        Scanner teclado = new Scanner(System.in);
+        do {
+            System.out.println(
+                    "1-Editar Visitante\n" +
+                            "2- Editar Reservas ");
 
-        System.out.println(
-                "1-Editar Reservas\n" +
-                "2- Editar Visitantes ");
-
-        int opcion = teclado.nextInt();
-
-
-        switch (opcion) {
-            case 1:
-                this.editSwitchVisitantes(hotel);
-                break;
-            case 2:
-                this.editSwitchReservas(hotel);
-                break;
-        }
-    }
-
-    protected void visitanteSwitchEliminar(Hotel hotel) {
-
-        Scanner teclado = new Scanner(System.in);
-        System.out.println(
-                        "1-Eliminar Reservas\n" +
-                        "2- Eliminar Visitantes ");
-
-        int opcion = teclado.nextInt();
+            opcion = scanner.nextInt();
 
 
-        switch (opcion) {
-            case 1:
-                ///Metodo de llamado a lista de habitaciones y luego poder Eliminar
-                break;
-            case 2:
-                /// Metodo de llamado a lista de empleados y luego poder Eliminar
-                break;
-        }
-    }
+            switch (opcion) {
+                case 1:
+                    this.editSwitchVisitantes(hotel);
+                    break;
+                case 2:
+                    this.editSwitchReservas(hotel);
+                    break;
+                case 0:
+                    System.out.println("Saliendo del programa.");
+                    break;
+                default:
+                    System.out.println("Opción no válida.");
+            }
 
-    protected void visitanteSwitchCrear(Hotel hotel) {
-
-        Scanner teclado = new Scanner(System.in);
-        System.out.println(
-                        "1-Crear Reservas\n" +
-                        "2- Crear Visitantes ");
-
-        int opcion = teclado.nextInt();
-
-
-        switch (opcion) {
-            case 1:
-                ///Metodo de llamado a lista de habitaciones y luego poder Crear
-                break;
-            case 2:
-                /// Metodo de llamado a lista de empleados y luego poder Crear
-                break;
-            case 3:
-                /// Metodo de llamado a lista de Estadias y luego poder Crear
-                break;
-        }
+        }while (opcion != 0);
     }
 
 
 
     protected void   editSwitchReservas(Hotel hotel){
+        Scanner scanner = new Scanner(System.in);
+        int opcion;
+        System.out.println("Ingrese el ID de la reserva");
+        int idreserva = scanner.nextInt();
+        scanner.nextLine();
+        Reserva aux = null;
+        for(Reserva aux1 : hotel.getReservas()){
+            if(aux1.getID() == idreserva){
+                aux=aux1;
+            }
 
-        Scanner teclado = new Scanner(System.in);
-        ///Pedir El empleado por nroLegajo
-        /// Mostrar mostrar Empleado
-
-        System.out.println("1- Editar el visitante de la  Reserva \n" +
-                "2- Editar la llegada a la  Reserva\n" +
-                "3-Editar la salida de la  Reserva\n" +
-                "4-Editar estado de la  Reserva");
-
-        int opcion = teclado.nextInt();
-
-
-        switch (opcion) {
-            case 1:
-                ///Solicitar y asignar
-                break;
-            case 2:
-                ///Solicitar  y asignar
-                break;
-            case 3:
-                ///Solicitar  y asignar
-                break;
-            case 4:
-                ///Solicitar  y asignar
-                break;
         }
+
+        do {
+            System.out.println("1. Editar Dia de llegada");
+            System.out.println("2. Editar Dia de salida");
+            System.out.println("0. Salir");
+            System.out.print("Elija una opción: ");
+            opcion = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcion) {
+                case 1:
+                    aux.setLlegada(pedirFecha("llegada", scanner));
+
+                    break;
+                case 2:
+                    aux.setSalida(pedirFecha("Salida ", scanner));
+                    break;
+                case 0:
+                    System.out.println("Saliendo del programa.");
+                    break;
+                default:
+                    System.out.println("Opción no válida.");
+            }
+            System.out.println();
+        } while (opcion != 0);
+
+        scanner.close();
 
     }
 
     protected void  editSwitchVisitantes(Hotel hotel){
-        Scanner teclado = new Scanner(System.in);
-        ///Pedir El empleado por nroLegajo
-        /// Mostrar mostrar Empleado
+        Scanner scanner = new Scanner(System.in);
+        int opcion;
 
-        System.out.println("1- Editar el DNI del  visitante  \n" +
-                "2- Editar el Origen del visitante \n" +
-                "3-Editar el domicilio de origen del visitante \n" +
-                "4-Editar nombre del  visitante \n" +
-                "5- Editar apellido del visitante");
+        do {
+            System.out.println("1. Editar nombre");
+            System.out.println("2. Editar apellido");
+            System.out.println("3. Editar usuario");
+            System.out.println("4. Editar clave");
+            System.out.println("5. Editar DNI");
+            System.out.println("6. Editar domicilio de origen");
+            System.out.println("7. Editar país de origen");
+            System.out.println("0. Salir");
+            System.out.print("Elija una opción: ");
+            opcion = scanner.nextInt();
+            scanner.nextLine(); // Consumir el salto de línea pendiente
 
-        int opcion = teclado.nextInt();
+            switch (opcion) {
+                case 1:
+                    System.out.print("Nuevo nombre: ");
+                    String nuevoNombre = scanner.nextLine();
+                    this.setNombre(nuevoNombre);
+                    System.out.println("Nombre actualizado.");
+                    break;
+                case 2:
+                    System.out.print("Nuevo apellido: ");
+                    String nuevoApellido = scanner.nextLine();
+                    this.setApellido(nuevoApellido);
+                    System.out.println("Apellido actualizado.");
+                    break;
+                case 3:
+                    System.out.print("Nuevo usuario: ");
+                    String nuevoUsuario = scanner.nextLine();
+                    this.setUsuario(nuevoUsuario);
+                    System.out.println("Usuario actualizado.");
+                    break;
+                case 4:
+                    System.out.print("Nueva clave: ");
+                    String nuevaClave = scanner.nextLine();
+                    this.setClave(nuevaClave);
+                    System.out.println("Clave actualizada.");
+                    break;
+                case 5:
+                    System.out.print("Nuevo DNI: ");
+                    int nuevoDni = scanner.nextInt();
+                    this.setDni(nuevoDni);
+                    scanner.nextLine();
+                    System.out.println("DNI actualizado.");
+                    break;
+                case 6:
+                    System.out.print("Nuevo domicilio de origen: ");
+                    String nuevoDomicilio = scanner.nextLine();
+                    this.setDomicilioOrigen(nuevoDomicilio);
+                    System.out.println("Domicilio de origen actualizado.");
+                    break;
+                case 7:
+                    System.out.print("Nuevo país de origen: ");
+                    String nuevoOrigen = scanner.nextLine();
+                    this.setOrigen(nuevoOrigen);
+                    System.out.println("País de origen actualizado.");
+                    break;
+                case 0:
+                    System.out.println("Saliendo del programa.");
+                    break;
+                default:
+                    System.out.println("Opción no válida.");
+            }
+            System.out.println();
+        } while (opcion != 0);
 
-
-        switch (opcion) {
-            case 1:
-                ///Solicitar y asignar
-                break;
-            case 2:
-                ///Solicitar  y asignar
-                break;
-            case 3:
-                ///Solicitar  y asignar
-                break;
-            case 4:
-                ///Solicitar  y asignar
-                break;
-            case 5:
-                /// Solicitar y asignar
-                break;
-
-        }
+        scanner.close();
 
     }
 
+public void visualizarInfoVisit(){
+        System.out.println(this.toString());
+}
 
+public void visualizarReservas(Hotel hotel){
+    for(Reserva aux: hotel.getReservas()){
+        if(aux.getVisitante().getDni() == this.getDni()){
+            System.out.println(aux.toString());
+        }
+    }
+}
+    public void visualizarEstadias(Hotel hotel) {
+        for (Estadia aux : hotel.getEstadias()) {
+            if (aux.getVisitante().getDni() == this.getDni()) {
+                System.out.println(aux.toString());
+            }
+        }
+    }
 
+    private  Date pedirFecha(String tipoFecha, Scanner scanner) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        while (true) {
+            try {
+                System.out.print("Ingrese la fecha de " + tipoFecha + " (yyyy-MM-dd): ");
+                String fechaString = scanner.nextLine();
+                Date fecha = dateFormat.parse(fechaString);
+                return fecha;
+            } catch (Exception e) {
+                System.out.println("Formato de fecha incorrecto. Intente nuevamente.");
+            }
+        }
+
+    }
 
 
 
     ///============================================================================================================
 
 
-    @Override
+@Override
     public String toString() {
         return "Visitante{" +
                 "dni=" + dni +
@@ -295,26 +375,45 @@ public class Visitante extends Usuario implements IAdministrarEstadia {
                 ", estado=" + estado +
                 "} ";
     }
+///==============================================================================================================
+
 
     @Override
-    public void crearEstadia(Hotel hotel) {
+    public void crearReserva(Hotel hotel){
+        Scanner scanner = new Scanner(System.in);
+
+        Date llegada = pedirFecha("llegada", scanner);
+        Date salida = pedirFecha("salida", scanner);
+        Reserva Aux= new Reserva(this,null,llegada,salida);
+
+        for(Habitacion aux: hotel.getHabitaciones()){
+            if(aux.getFechaLejana().before(Aux.llegada)){
+                hotel.agregarReserva(Aux);
+                aux.setFechaLejana(Aux.salida);
+            }else{
+                if(aux.getFechaProxima().after(Aux.salida)){
+                    hotel.agregarReserva(Aux);
+                    aux.setFechaProxima(Aux.llegada);
+                }
+            }
+
+        }
+
+        scanner.close();
+    }
+
+    @Override
+    public void editarReserva(int id) {
 
     }
 
     @Override
-    public void editarEstadia(Hotel hotel, int id) {
+    public void listarReservas() {
 
     }
 
     @Override
-    public void listarEstadias(Hotel hotel) {
-        hotel.mostrarEstadiasPorDNI(getDni());
-    }
-
-    @Override
-    public void buscarEstadia(Hotel hotel, int id) {
+    public void buscarReserva(int id) {
 
     }
-
-
 }
