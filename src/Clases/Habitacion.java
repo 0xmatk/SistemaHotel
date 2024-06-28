@@ -5,9 +5,11 @@ import java.io.Serializable;
 import Enum.EstadoHabitacion;
 import Enum.TipoHabitacion;
 import Genericos.SetGenerico;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Date;
 
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Habitacion implements Serializable {
     private TipoHabitacion tipo;
     private int numero;

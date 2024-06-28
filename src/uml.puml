@@ -221,8 +221,54 @@ class Estadia extends Reserva implements Serializable {
          FAMILIAR,
      }
 
-     class CredencialesInvalidasExcepcion extends Exception{}
-      class VisitanteNoEncontradoExcepcion extends Exception{}
+class CredencialesInvalidasExcepcion extends Exception{}
+class VisitanteNoEncontradoExcepcion extends Exception{}
+
+interface IAdministrarEstadia{
+    +   void crearEstadia(Hotel hotel)
+    - Date ingresarFecha(String mensaje, Scanner scanner)
+    + default void editarEstadia(Hotel hotel)
+    + default void listarEstadias(Hotel hotel)
+    + default void buscarEstadia(Hotel hotel, int id)
+    + default void darCheckIn(Hotel hotel, int id)
+    + default void darCheckOut(Hotel hotel, int id)
+
+}
+interface IAdministrarHabitacion{
+    + void mostrarHabitaciones(Hotel hotel)
+    + default void editarHabitacion(Hotel hotel, int numero)
+    + void eliminarHabitacion(Hotel hotel)
+    + Habitacion buscarNumeroHabitacion(Hotel hotel, int numero)
+    + default void crearHabitacion(Hotel hotel)
+}
+
+interface IAdministrarReserva{
+     void crearReserva(Hotel hotel);
+     void editarReserva(int id);
+     void listarReservas();
+     void buscarReserva(int id);
+}
+
+interface IAdministrarVisitante{
+    + default void darAlta(Hotel hotel, Visitante visitante)
+    + default void darBaja(Hotel hotel, int dni)
+    + default Visitante crearVisitante(Hotel hotel)
+    + default void mostrarVisitantes(Hotel hotel)
+}
+interface IAltaBajaModificacion{
+    + default void darAltaEmpleado(Hotel hotel, Empleado empleado)
+    + default void darBajaEmpleado(Hotel hotel, int nroLegajo)
+    + default void modificarEmpleado(Hotel hotel, int nroLegajo)
+    + default Empleado buscarEmpleado(Hotel hotel, int nroLegajo)
+    + default void crearEmpleado(Hotel hotel, String nombre, String apellido, int nroLegajo, String usuario, String clave)
+}
+
+class setGenerico implements Iterable{
+     + void add(T elemento)
+     + void remove(T elemento)
+     + Set<T> getElementos()
+     + Iterator<T> iterator()
+}
 
 
 @enduml

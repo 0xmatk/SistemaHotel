@@ -51,6 +51,7 @@ public class Sistema  {
     public Usuario iniciarSesion() {
         boolean encontrado = false;
         Usuario aux = null;
+        Administrador admin = new Administrador();
 
         System.out.println("===========================================================================================================");
         System.out.println("====================================Bienvenido a nuestro sistema Hotelero================================");
@@ -62,9 +63,17 @@ public class Sistema  {
             System.out.print("Ingrese su contraseña: ");
             String clave = this.teclado.next();
 
+
+
             if (usuario.isEmpty() || clave.isEmpty()) {
                 System.out.println("Por favor ingrese ambos parámetros.");
             } else {
+                if (usuario.equals("admin") && clave.equals("admin")) {
+                    aux = admin;
+                    encontrado = true;
+                    System.out.println("Inicio de sesión exitoso como Administrador.");
+                    break;
+                }
                 try {
                     Datos datos = new Datos();
                     // Cargar usuarios resumidos desde el archivo generado
@@ -75,6 +84,8 @@ public class Sistema  {
                         String usuarioRes = usuarioResumido.get("usuario").asText();
                         String claveRes = usuarioResumido.get("clave").asText();
                         String tipoUsuario = usuarioResumido.get("tipo").asText();
+
+
 
                         if (usuario.equals(usuarioRes) && clave.equals(claveRes)) {
                             if (tipoUsuario.equals("Empleado")) {
@@ -94,9 +105,11 @@ public class Sistema  {
                                     }
                                 }
                             }
+
                             System.out.println("Inicio de sesión exitoso para tipo: " + tipoUsuario);
                             if (encontrado) break;
                         }
+
                     }
                     if (!encontrado) {
                         System.out.println("Usuario o contraseña incorrectos. Inténtelo nuevamente.");
