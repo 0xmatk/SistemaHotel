@@ -13,6 +13,10 @@ public class Estadia extends Reserva implements Serializable {
     private static int contador  = 0;
 
 
+    public Estadia(){
+        super();
+    }
+
     public Estadia(Visitante visitante, Habitacion habitacion, Date llegada, Date salida) {
         super(visitante, habitacion, llegada, salida);
         this.checkIn = false;

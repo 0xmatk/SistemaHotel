@@ -1,12 +1,13 @@
 package Genericos;
 
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class SetGenerico<T> implements Iterable<T> {
+public class SetGenerico<T> implements Iterable<T>, Serializable {
     private Set<T> elementos;
 
     public SetGenerico() {
@@ -35,5 +36,10 @@ public class SetGenerico<T> implements Iterable<T> {
         return elementos.iterator();
     }
 
-
+    @Override
+    public String toString() {
+        return "SetGenerico{" +
+                "elementos=" + elementos +
+                '}';
+    }
 }

@@ -13,11 +13,14 @@ public class Empleado extends Usuario implements IAdministrarVisitante, IAdminis
     private int nroLegajo;
     private boolean estado;
 
+    public Empleado(){
+
+    }
 
     public Empleado(String nombre, String apellido, String usuario, String clave, int nroLegajo) {
         super(nombre, apellido, usuario, clave);
         this.nroLegajo = nroLegajo;
-        this.estado = isEstado();
+        this.estado = true;
     }
 
     public int getNroLegajo() {
@@ -42,7 +45,7 @@ public class Empleado extends Usuario implements IAdministrarVisitante, IAdminis
         Scanner teclado;
         teclado = new Scanner(System.in);
         int opcion;
-        System.out.printf("<<<<<<<<<<<<<<<<<<<<<<<<<<Menu de Empleado>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        System.out.printf("<<<<<<<<<<<<<<<<<<<<<<<<<<Menu de Empleado>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
 
         do {
             System.out.println("1- Habitaciones  \n" +
@@ -181,51 +184,66 @@ public class Empleado extends Usuario implements IAdministrarVisitante, IAdminis
     protected void empSwitchVisitante(Hotel hotel) {
         Visitante v = null;
         Scanner teclado = new Scanner(System.in);
+        boolean continuar = true;
         int opcion;
+
         do {
             System.out.println(
                     "1- Crear Visitante\n" +
                             "2- Visualizar visitantes\n" +
                             "3- Editar Visitante\n" +
                             "4- Eliminar Visitante\n" +
-                            "Presione Esc para salir...\n"
+                            "5 - Salir\n"
             );
 
-            opcion = teclado.nextInt();
-            teclado.nextLine();
 
+                opcion = teclado.nextInt();
+                System.out.println(opcion);
 
-            switch (opcion) {
-                case 1:
-                    v = crearVisitante(hotel);
-                    if (v != null) {
-                        darAlta(hotel, v);
-                    } else {
-                        System.out.println("NULL");
-                    }
+                switch (opcion) {
+                    case 1:
+                        v = crearVisitante(hotel);
+                        if (v != null) {
+                            darAlta(hotel, v);
 
-                    break;
-                case 2:
-                    System.out.println("Mostrando visitantes: ");
-                    //hotel.getVisitantes();
-                    break;
-                case 3:
-                    //
-                    break;
-                case 4:
-                    System.out.println("Ingrese el dni del visitante a dar de baja: ");
-                    int dni = teclado.nextInt();
-                    darBaja(hotel, dni);
-                    break;
+                        } else {
+                            System.out.println("NULL");
 
-                default:
-                    System.out.println("Opcion invalida");
-                    break;
-            }
-        }while(opcion != 27);
+                        }
+
+                        break;
+                    case 2:
+                        System.out.println("Mostrando visitantes: ");
+                        hotel.mostrarVisitantes();
+                        break;
+                    case 3:
+                        // Lógica para editar visitante
+                        break;
+                    case 4:
+                        System.out.println("Ingrese el dni del visitante a dar de baja: ");
+                        if (teclado.hasNextInt()) {
+                            int dni = teclado.nextInt();
+                            teclado.nextLine();
+                            darBaja(hotel, dni);
+                        } else {
+                            System.out.println("Entrada no válida. Por favor, ingrese un número.");
+                            teclado.nextLine();
+                        }
+                        break;
+                    case 5:
+
+                        continuar = false;
+                        break;
+                    default:
+                        System.out.println("Opción inválida");
+                        break;
+                }
+        } while (continuar);
 
         teclado.close();
+
     }
+
 
 
 

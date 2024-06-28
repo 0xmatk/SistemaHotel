@@ -22,6 +22,10 @@ public class Reserva implements Serializable {
             this.ID = contador++;
     }
 
+    public Reserva() {
+
+    }
+
 
     public Visitante getVisitante() {
         return visitante;

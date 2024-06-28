@@ -67,7 +67,7 @@ public interface IAdministrarVisitante {
                     Visitante nuevoVisitante = new Visitante(nombre, apellido, usuario, clave, dni, domicilioOrigen, origen);
                     return nuevoVisitante;
                 } else {
-                    throw new IllegalArgumentException("Datos incompletos para crear el visitante.");
+                    throw new IllegalArgumentException("Datos.Datos incompletos para crear el visitante.");
                 }
             } else {
                 throw new VisitanteNoEncontradoExcepcion("No se puede crear el visitante. Ya existe.");

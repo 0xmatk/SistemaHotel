@@ -2,12 +2,13 @@ package Clases;
 
 import Genericos.SetGenerico;
 
+import java.io.Serializable;
 import java.util.LinkedHashSet;
 import java.util.Scanner;
 import java.util.Set;
 import Enum.EstadoHabitacion;
 
-public class Hotel {
+public class Hotel implements Serializable {
     private SetGenerico<Habitacion> habitaciones;
     private SetGenerico<Empleado> empleados;
     private SetGenerico<Estadia> estadias;
@@ -16,12 +17,12 @@ public class Hotel {
     private Administrador admin;
 
 
-    public Hotel() {
-        this.habitaciones = new SetGenerico<>();
-        this.reservas = new SetGenerico<>();;
-        this.estadias = new SetGenerico<>();
-        this.empleados = new SetGenerico<>();
-        this.visitantes = new SetGenerico<>();
+    public Hotel(SetGenerico<Habitacion> habitaciones, SetGenerico<Reserva> reservas, SetGenerico<Estadia> estadias,  SetGenerico<Empleado> empleados, SetGenerico<Visitante> visitantes) {
+        this.habitaciones = habitaciones;
+        this.reservas = reservas;
+        this.estadias = estadias;
+        this.empleados = empleados;
+        this.visitantes = visitantes;
     }
 
 
@@ -118,7 +119,7 @@ public class Hotel {
     }
 
     public void agregarHabitacion(Habitacion habitacion){
-        getHabitaciones().add(habitacion);
+        habitaciones.add(habitacion);
     }
 
     public void mostrarHabitacionPart(){
@@ -167,6 +168,12 @@ public class Hotel {
             }
         }
         return null;
+    }
+
+    public void mostrarVisitantes(){
+        for(Visitante v : this.visitantes){
+            System.out.println(v);
+        }
     }
 
     public SetGenerico<Habitacion> getHabitaciones() {

@@ -315,4 +315,6 @@ public class Visitante extends Usuario implements IAdministrarEstadia {
     public void buscarEstadia(Hotel hotel, int id) {
 
     }
+
+
 }

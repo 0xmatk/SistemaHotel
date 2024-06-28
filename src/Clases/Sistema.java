@@ -1,26 +1,41 @@
 package Clases;
 
-import java.util.LinkedList;
-import java.util.List;
+
+import java.util.*;
+import Datos.Datos;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Sistema  {
     private Scanner teclado ;
     private List<Usuario> usuarios;
     private Hotel hotel;
-/// Sacaria esos atributos y colocaria una coleccion de usuarios y el hotel. Para con iniciarseccion te entregue el Usuario utilizado
-/// Buscar como hacer limpieza de pantalla
+    private JsonNode usuariosJSON;
 
 
 
 
-    public Sistema() {
+
+    public Sistema(Hotel hotel) {
         this.teclado = new Scanner(System.in);
-       this.hotel = new Hotel();
-       this.usuarios= new LinkedList<>();
+        this.hotel = hotel;
+        this.usuarios= new LinkedList<>();
     }
 ///=====================================================================================================================
 ///<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<SWITCHS/ TAREAS A REALIZAR>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+
+
+
+
 
     public void actividadUsuario(Usuario usuario){
         if(usuario instanceof Administrador){
@@ -39,40 +54,53 @@ public class Sistema  {
         }
     }
 
-    public void iniciarSesion() {
-        int flag=0;
-        Usuario aux= null;
-        System.out.printf("===========================================================================================================\n");
-        System.out.printf("=======================================Bienvenido a nuestro sistema Hotelero===============================\n");
-        System.out.printf("===========================================================================================================\n");
+  public void iniciarSesion() {
+        int flag = 0;
+        Usuario aux = null;
 
-        while(flag==0) {
-            System.out.printf("Ingrese su usuario:...");
-            String usua = this.teclado.next();
-            System.out.printf("Ingrese su contraseña:...");
-            String contraseña = this.teclado.next();
+        System.out.println("===========================================================================================================");
+        System.out.println("====================================Bienvenido a nuestro sistema Hotelero================================");
+        System.out.println("===========================================================================================================");
 
+        while (flag == 0) {
+            System.out.print("Ingrese su usuario: ");
+            String usuario = this.teclado.next();
+            System.out.print("Ingrese su contraseña: ");
+            String clave = this.teclado.next();
 
-
-            if (usua == null || contraseña == null) {
-                System.out.printf("Ingrese nuevamente los parametros pedidos\n");
+            if (usuario.isEmpty() || clave.isEmpty()) {
+                System.out.println("Por favor ingrese ambos parámetros.");
             } else {
-                for (Usuario Usuario : this.usuarios) {
-                    if (Usuario.getUsuario().equals(usua) && Usuario.getClave().equals(contraseña)) {
-                        aux = Usuario;
+                try {
+                    Datos datos = new Datos();
+                    // Cargar usuarios resumidos desde el archivo generado
+                    List<ObjectNode> usuariosResumidos = datos.extraerUsuariosClaveTipo("usuarios.json", "Usuario");
+
+                    // Comparar usuario y clave con los usuarios cargados
+                    boolean encontrado = false;
+                    for (ObjectNode usuarioResumido : usuariosResumidos) {
+                        String usuarioRes = usuarioResumido.get("usuario").asText();
+                        String claveRes = usuarioResumido.get("clave").asText();
+
+
+                        if (usuario.equals(usuarioRes) && clave.equals(claveRes)) {
+                            encontrado = true;
+                            String tipoUsuario = usuarioResumido.get("tipo").asText();
+                            System.out.println("Inicio de sesión exitoso para tipo: " + tipoUsuario);
+                            break;
+                        }
                     }
 
-                }
-                if (aux == null) {
-                    System.out.printf("Su usuario no existe.");
-                }
-                else{
-                    flag=1;
-                    this.actividadUsuario(aux);
+                    if (!encontrado) {
+                        System.out.println("Usuario o contraseña incorrectos. Inténtelo nuevamente.");
+                    } else {
+                        flag = 1;
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
-
-
         }
     }
 
