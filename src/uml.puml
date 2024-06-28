@@ -223,4 +223,5 @@ class Estadia extends Reserva implements Serializable {
      class CredencialesInvalidasExcepcion extends Exception{}
       class VisitanteNoEncontradoExcepcion extends Exception{}
 
+
 @enduml
