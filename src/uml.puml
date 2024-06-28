@@ -1,153 +1,226 @@
 @startuml
 
-abstract class Persona{
-    - nombre : String
-    - apellido : String
-
-    + Persona(String nombre, String apellido)
-    + String getNombre()
-    + void setNombre(String nombre)
-    + String getApellido()
-    + void setApellido(String apellido)
+class Administrador extends Usuario implements IAdministrarHabitacion, IAdministrarVisitante, IAltaBajaModificacion, IAdministrarEstadia, IAdministrarReserva{
++Administrador()
++Administrador(String nombre, String apellido, String usuario, String clave)
++adminSwitch(Hotel hotel)
++adminSwitchVisualizar(Hotel hotel)
++adminSwitchEditar(Hotel hotel)
++adminSwitchEliminar(Hotel hotel)
++adminSwitchCrear(Hotel hotel)
++editSwitchHabitaciones(Hotel hotel)
++editSwitchEmpleados(Hotel hotel)
++editSwitchEstadias(Hotel hotel)
++editSwitchReservas(Hotel hotel)
++editSwitchVisitantes(Hotel hotel)
+-pedirFecha(String tipoFecha, Scanner scanner)
 }
 
-class Empleado extends Persona implements administrarReserva {
-    - nroLegajo : int
-    - hotel : Hotel
-    - estado : boolean
+class Empleado extends Usuario implements IAdministrarVisitante, IAdministrarEstadia, IAdministrarReserva {
+- nroLegajo : int
+-estado : boolean
 
-    + int getNroLegajo()
-    + void setNroLegajo(int nroLegajo)
-
++Empleado()
++Empleado(String nombre, String apellido, String usuario, String clave, int nroLegajo)
++getNroLegajo()
++ setNroLegajo(int nroLegajo)
++isEstado()
++setEstado(boolean estado)
++empSwitch(Hotel hotel)
++empSwitchHabitaciones(Hotel hotel)
++empSwitchEstadia(Hotel hotel)
++empSwitchReserva(Hotel hotel)
++empSwitchVisitante(Hotel hotel)
++editSwitchEstadias(Hotel hotel)
++editSwitchReservas(Hotel hotel)
++editSwitchVisitantes(Hotel hotel)
++pedirFecha(String tipoFecha, Scanner scanner)
 }
+class Estadia extends Reserva implements Serializable {
+-checkIn : boolean
+-checkOut : boolean
+-costo: int
+- ID: int
+-contador : int
 
-class Visitante extends Persona implements administrarReserva, Autentificador {
-    - dni : int
-    - presente : boolean
-    - habitacion : int
-    - gastos : float
-    - domicilioOrigen : String
-    - origen : String
-}
-
-class Admin extends Persona implements AutentificacionUsuario{
-- Usuario : String
-- Contraseña: String
-
-+ Admin(String nombre, String apellido)
-+ String getUsuario()
-+ String getContrasenia()
-}
-
-class Sistema implements AutentificacionUsuario {
-    -  teclado :Scanner
-    -  usuario : String
-    -  contrasenia : String
-
-    +Sistema()
-    }
-
-class Hotel {
- - Set<Habitacion> habitaciones;
- - Set<Empleado> empleados;
- - Set<Estadia> estadias;
- - Set<Reserva> reservas;
-
-+  Hotel Hotel()
-+ void agregarReserva(Reserva reserva)
-+ void agregarEstadia(Estadia estadia)
-+ void mostrarEstadias()
-+ void mostrarReservas()
-+ Reserva encontrarReserva(int id)
-}
-
-class Habitacion {
-    - tipoHabitacion : String
-    - numero : int
-    - coste : int
-    - disponible : boolean
-
-    + Habitacion(String tipo, boolean disponible, int coste, int numero)
-    + String getTipo()
-    + void setTipo(String tipo)
-    + int getCoste()
-    + void setCoste(int coste)
-    + int getNumero()
-    + void setNumero(int numero)
-    + boolean isDisponible()
-    + void setDisponible(boolean disponible)
-}
-
-class Estadia extends Reserva{
-     - checkIn : boolean
-     - checkOut : boolean
-     - costo : int
-
-    + Estadia(Visitante visitante, Habitacion habitacion, Date llegada, Date salida)
-    + int calcularCosto()
++Estadia()
++Estadia(Visitante visitante, Habitacion habitacion, Date llegada, Date salida)
++calcularCosto()
++isCheckIn()
++ setCheckIn(boolean checkIn)
++getContador()
++setContador(int contador)
++getCosto()
++setCosto(int costo)
++isCheckOut()
++setCheckOut(boolean checkOut)
 }
 
 
-class Reserva {
-     # visitante : Visitante
-     # habitacion : Habitacion
-     # llegada : Date
-     # salida : Date
-     # estado : boolean
-     - id : int
-     - static  contador : int
+ class Habitacion implements Serializable{
+- tipo: TipoHabitacion
+- numero : int
+- coste : int
+-estado :  EstadoHabitacion
+-fechaProxima : Date
+-fechaLejana : Date
 
-     + Reserva(Visitante visitante, Habitacion habitacion, Date llegada, Date salida)
-     + Visitante getVisitante()
-     +void setVisitante(Visitante visitante)
-     + Date getSalida()
-     + void setSalida(Date salida)
-     +Date getLlegada()
-     +void setLlegada(Date llegada)
-     +Habitacion getHabitacion()
-     +void setHabitacion(Habitacion habitacion)
-     +boolean isEstado()
-     +void setEstado(boolean estado)
-     +int getID()
-
-
++Habitacion()
++Habitacion(int coste, int numero)
++getTipo()
++setTipo(TipoHabitacion tipo)
++getCoste()
++setCoste(int coste)
++getNumero()
++setNumero(int numero)
++getEstado()
++setEstado(EstadoHabitacion estado)
++getFechaProxima()
++getFechaLejana()
++setFechaProxima(Date fechaProxima)
++setFechaLejana(Date fechaLejana)
 }
 
-interface administrarReserva {
-   + crearReserva(Reserva reserva) : void
-    + editarReserva(Reserva reserva) : void
-    +eliminarReserva(Reserva reserva) : void
-    +listarReservas() : void
-}
+ class Hotel implements Serializable{
+-habitaciones :SetGenerico<Habitacion>
+-empleados :SetGenerico<Empleado>
+-estadias :SetGenerico<Estadia>
+-reservas :SetGenerico<Reserva>
+-visitantes :SetGenerico<Visitante>
+-admin :Administrador
 
-interface AdministrarEstadia {
++Hotel(SetGenerico<Habitacion> habitaciones, SetGenerico<Reserva> reservas, SetGenerico<Estadia> estadias,  SetGenerico<Empleado> empleados, SetGenerico<Visitante> visitantes)
++agregarReserva(Reserva reserva)
++agregarEstadia(Estadia estadia)
++mostrarEstadias()
++mostrarReservas()
++encontrarReserva(int id)
++eliminarReserva(int id)
++encontrarEstadia(int id)
++eliminarEstadia(int id)
++mostrarEstadiasPorDNI(int dni)
++mostrarHabitaciones()
++mostrarHabitacionesDisp()
++agregarHabitacion(Habitacion habitacion)
++mostrarHabitacionPart()
++buscarNumeroHabitacion(int numero)
++buscarVisitante(int dni)
++buscarReservaPorID(int id)
++buscarReserva(Reserva reserva)
++mostrarVisitantes()
++mostrarEmpleados()
++agregarEmpleado(Empleado empleado)
++getHabitaciones()
++getEmpleados()
++getEstadias()
++getReservas()
++getVisitantes()
+ }
 
- +crearEstadia(Visitante visitante, Habitacion habitacion, boolean checkIn, boolean checkOut, int costo) : void
-     +editarEstadia(int ID): void
-    +listarEstadias() : void
-   + buscarEstadia(int dni) : void
-}
+ abstract class Persona{
+-nombre : string
+-apellido: String
 
-interface AltaBajaModificacion{
++Persona()
++Persona(String nombre, String apellido)
++getNombre()
++setNombre(String nombre)
++getApellido()
++setApellido(String apellido)
+   }
+ class Reserva implements Serializable{
+ visitante : Visitante
+-habitacion : Habitacion
+-llegada : Date
+-salida : Date
+-estado : boolean
+- ID : int
+- contador : int
 
- +darAlta() : void
-+darBaja(): void
-+modificar(): void
-}
++Reserva(Visitante visitante, Habitacion habitacion, Date llegada, Date salida)
++Reserva()
++getVisitante()
++ setVisitante(Visitante visitante)
++ getSalida()
++setSalida(Date salida)
++getLlegada()
++setLlegada(Date llegada)
++getHabitacion()
++setHabitacion(Habitacion habitacion)
++isEstado()
++setEstado(boolean estado)
++getID()
+ }
 
-interface AutentificacionUsuario{
-+iniciarSesion(String nombreUsuario, String contrasena): boolean
-+cerrarSesion() : void
-+verificarCredenciales(String nombreUsuario, String contrasena): boolean
-}
+ class Sistema{
 
-interface Autentificador{
-+generateToken() : String
-}
+-teclado : Scanner
+-usuarios : List<Usuario>
+-hotel : Hotel
+-usuariosJSON
 
++Sistema(Hotel hotel)
++actividadUsuario(Usuario usuario)
++iniciarSesion()
+ }
 
+ abstract class Usuario extends Persona{
 
+-usuarioa : String
+-clave : String
 
++Usuario(String nombre, String apellido, String usuario, String clave)
++getUsuario()
++setUsuario(String usuario)
++getClave()
++setClave(String clave)
+     }
 
+ class Visitante extends Usuario implements IAdministrarReserva{
+-dni : int
+-origen : String
+-domicilioOrigen : String
+-gastos : float
+-nroHabitacion : int
+- estado : boolean
+
++Visitante()
++Visitante(String nombre, String apellido, String usuario, String clave, int dni,String domicilioOrigen, String origen)
++ getDni()
++setDni(int dni)
++getOrigen()
++setOrigen(String origen)
++getDomicilioOrigen()
++setDomicilioOrigen(String domicilioOrigen)
++getGastos()
++setGastos(float gastos)
++getNroHabitacion()
++setNroHabitacion(int nroHabitacion)
++setEstado(boolean estado)
++isEstado()
++visitanteSwitch(Hotel hotel)
++visitanteSwitchVisualizar(Hotel hotel)
++visitanteSwitchEditar(Hotel hotel)
++editSwitchReservas(Hotel hotel)
++editSwitchVisitantes(Hotel hotel)
++visualizarInfoVisit()
++visualizarReservas(Hotel hotel)
++visualizarEstadias(Hotel hotel)
++pedirFecha(String tipoFecha, Scanner scanner)
+     }
+
+ enum EstadoHabitacion {
+         DISPONIBLE,
+         NO_DISPONIBLE,
+         EN_MANTENIMIENTO,
+         EN_LIMPIEZA
+     }
+     enum TipoHabitacion {
+         ESTANDAR,
+         SUITE,
+         FAMILIAR,
+     }
+     class CredencialesInvalidasExcepcion extends Exception{}
+      class VisitanteNoEncontradoExcepcion extends Exception{}
 
 @enduml

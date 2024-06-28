@@ -354,8 +354,12 @@ public class Empleado extends Usuario implements IAdministrarVisitante, IAdminis
                         r.setSalida(pedirFecha("salida", teclado));
                         break;
                     case 4:
-                        ///Solicitar  y asignar
-                        break;
+                        if(r.estado == true){
+                            r.estado= false;
+                        }else{
+                            r.estado=true;
+                        }
+                            break;
                     case 5:
                         /// Solicitar y asignar
                         break;
