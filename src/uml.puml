@@ -1,8 +1,8 @@
 @startuml
 
 abstract class Persona{
-    - nombre : String
-    - apellido : String
+    # nombre : String
+    # apellido : String
 
     + Persona(String nombre, String apellido)
     + String getNombre()
@@ -30,13 +30,18 @@ class Visitante extends Persona implements administrarReserva, Autentificador {
     - origen : String
 }
 
-class Admin extends Persona implements AutentificacionUsuario{
+class Administrador extends Persona implements AutentificacionUsuario{
 - Usuario : String
 - Contraseña: String
 
 + Admin(String nombre, String apellido)
 + String getUsuario()
 + String getContrasenia()
+}
+
+class Usuario{
+    # usuario : String
+    # clave : String
 }
 
 class Sistema implements AutentificacionUsuario {
@@ -112,6 +117,18 @@ class Reserva {
 
 
 }
+
+class SetGenerico implements Iterable{
+    - elementos : SetGenerico;
+
+    + SetGenerico() :
+    + add() : void
+    + remove : void
+    + getElementos : Set
+
+}
+
+
 
 interface administrarReserva {
    + crearReserva(Reserva reserva) : void
